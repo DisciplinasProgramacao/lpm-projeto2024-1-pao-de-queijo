@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -10,7 +11,7 @@ public class Requisicao {
     private int id;
     private Date data;
     private Date horaEntrada;
-    private Date horaSaida;
+    private LocalDateTime horaSaida;
     private Cliente cliente;
     private boolean atendida;
     private Mesa mesa;
@@ -33,10 +34,10 @@ public class Requisicao {
 
     /**
      * Finaliza a requisição, definindo a hora de saída e marcando como finalizada.
-     * @param horaSaida Hora em que o cliente saiu do restaurante.
+     * @param localDateTime Hora em que o cliente saiu do restaurante.
      */
-    public void finalizar(Date horaSaida) {
-        this.horaSaida = horaSaida;
+    public void finalizar(LocalDateTime localDateTime) {
+        this.horaSaida = localDateTime;
         this.atendida = true;
         Restaurante.requisicoesFinalizadas.add(this);
     }

@@ -6,9 +6,9 @@ public class Restaurante {
 
     private String nome;
     private List<Mesa> mesas;
-    private List<Requisicao> requisicoesPendentes;
-    private List<Requisicao> requisicoesAtendidas;
-    private List<Requisicao> requisicoesFinalizadas;
+    public static List<Requisicao> requisicoesPendentes;
+    public static List<Requisicao> requisicoesAtendidas;
+    public static List<Requisicao> requisicoesFinalizadas;
 
     public Restaurante(String nome) {
         this.nome = nome;
@@ -16,9 +16,9 @@ public class Restaurante {
         this.mesas.addAll(Mesa.gerarMesas(4, 4));
         this.mesas.addAll(Mesa.gerarMesas(6, 4));
         this.mesas.addAll(Mesa.gerarMesas(8, 2));
-        this.requisicoesPendentes = new ArrayList<>();
-        this.requisicoesAtendidas = new ArrayList<>();
-        this.requisicoesFinalizadas = new ArrayList<>();
+        Restaurante.requisicoesPendentes = new ArrayList<>();
+        Restaurante.requisicoesAtendidas = new ArrayList<>();
+        Restaurante.requisicoesFinalizadas = new ArrayList<>();
     }
 
     public String getNome() {
@@ -42,7 +42,7 @@ public class Restaurante {
     }
 
     public void setRequisicoesPendentes(List<Requisicao> requisicoesPendentes) {
-        this.requisicoesPendentes = requisicoesPendentes;
+        Restaurante.requisicoesPendentes = requisicoesPendentes;
     }
 
     public List<Requisicao> getRequisicoesAtendidas() {
@@ -50,7 +50,7 @@ public class Restaurante {
     }
 
     public void setRequisicoesAtendidas(List<Requisicao> requisicoesAtendidas) {
-        this.requisicoesAtendidas = requisicoesAtendidas;
+        Restaurante.requisicoesAtendidas = requisicoesAtendidas;
     }
 
     public List<Requisicao> getRequisicoesFinalizadas() {
@@ -58,7 +58,7 @@ public class Restaurante {
     }
 
     public void setRequisicoesFinalizadas(List<Requisicao> requisicoesFinalizadas) {
-        this.requisicoesFinalizadas = requisicoesFinalizadas;
+        Restaurante.requisicoesFinalizadas = requisicoesFinalizadas;
     }
 
     public boolean procurarMesa(int quantidadePessoas) {
