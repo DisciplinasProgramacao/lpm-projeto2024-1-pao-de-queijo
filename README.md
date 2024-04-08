@@ -6,7 +6,7 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 * Gustavo Mariz Andrade
 * Matheus Brasil Aguiar
 * Nicolás Melo Chabot
-* Raquel Inez de Almeida
+* Raquel Calazans
 
 ## Professores responsáveis
 
