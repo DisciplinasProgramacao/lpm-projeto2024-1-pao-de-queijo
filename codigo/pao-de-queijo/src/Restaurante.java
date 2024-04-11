@@ -13,7 +13,7 @@ public class Restaurante {
     public Restaurante(String nome) {
         this.nome = nome;
         this.mesas = new ArrayList<>();
-        gerarMesas(4, 4));
+        gerarMesas(4, 4);
         this.mesas.addAll(gerarMesas(6, 4));
         this.mesas.addAll(gerarMesas(8, 2));
         this.requisicoesPendentes = new ArrayList<>();
