@@ -75,6 +75,6 @@ public class Requisicao {
     public void finalizar(LocalDateTime localDateTime) {
         this.horaSaida = localDateTime;
         this.atendida = true;
-        Restaurante.requisicoesFinalizadas.add(this);
+        this.mesa.setDisponivel(true);
     }
 }
