@@ -17,19 +17,17 @@ public class RequisicaoTest {
     @BeforeEach
     public void setUp() {
         cliente = new Cliente("João", (long)123456789);
-        Date data = new Date();
-        Date horaEntrada = new Date();
-        requisicao = new Requisicao(1, data, horaEntrada, cliente);
+        int quantClientes = 4 ;
+        requisicao = new Requisicao(1,quantClientes, cliente);
 
-        mesa = new Mesa(1, 4); // Exemplo de criação de uma Mesa. A classe Mesa deve ser definida para este teste.
+        mesa = new Mesa(1, 4, true); // Exemplo de criação de uma Mesa. A classe Mesa deve ser definida para este teste.
     }
 
     @Test
     public void testConstrutor() {
         assertNotNull(requisicao);
         assertEquals(1, requisicao.getId());
-        assertNotNull(requisicao.getData());
-        assertNotNull(requisicao.getHoraEntrada());
+        assertNotNull(requisicao.getquantClientes());
         assertEquals(cliente, requisicao.getCliente());
         assertFalse(requisicao.isAtendida());
         assertNull(requisicao.getMesa());
