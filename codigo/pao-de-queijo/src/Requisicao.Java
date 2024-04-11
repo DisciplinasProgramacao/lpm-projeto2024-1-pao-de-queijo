@@ -1,3 +1,5 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedList;
@@ -9,8 +11,7 @@ import java.util.Queue;
 public class Requisicao {
         
      private int id;
-     private Date data;
-     private Date horaEntrada;
+     private int quantClientes;
      private LocalDateTime horaSaida;
      private Cliente cliente;
      private boolean atendida;
@@ -23,10 +24,9 @@ public class Requisicao {
       * @param horaEntrada Hora de entrada do cliente no restaurante.
       * @param cliente Cliente que fez a requisição.
       */
-     public Requisicao(int id, Date data, Date horaEntrada, Cliente cliente) {
+     public Requisicao(int id, int quantClientes, Cliente cliente) {
          this.id = id;
-         this.data = data;
-         this.horaEntrada = horaEntrada;
+         this.quantClientes = quantClientes;
          this.cliente = cliente;
          this.atendida = false;
          this.mesa = null;
@@ -36,12 +36,8 @@ public class Requisicao {
          return id;
      }
  
-     public Date getData() {
-         return data;
-     }
- 
-     public Date getHoraEntrada() {
-         return horaEntrada;
+     public int getquantClientes() {
+         return quantClientes;
      }
  
      public Cliente getCliente() {
