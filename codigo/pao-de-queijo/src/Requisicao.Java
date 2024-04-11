@@ -1,5 +1,3 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedList;
@@ -11,6 +9,7 @@ import java.util.Queue;
 public class Requisicao {
         
      private int id;
+     private Date data;
      private int quantClientes;
      private LocalDateTime horaSaida;
      private Cliente cliente;
@@ -31,13 +30,14 @@ public class Requisicao {
          this.atendida = false;
          this.mesa = null;
      }
- 
-     public int getId() {
+
+    public int getId() {
          return id;
      }
- 
-     public int getquantClientes() {
-         return quantClientes;
+
+     public int getquantClientes(){
+        return quantClientes;
+        
      }
  
      public Cliente getCliente() {
