@@ -13,6 +13,7 @@ public class Restaurante {
     public Restaurante(String nome) {
         this.nome = nome;
         this.mesas = new ArrayList<>();
+
         this.mesas.addAll(Mesa.gerarMesas(4, 4));
         this.mesas.addAll(Mesa.gerarMesas(6, 4));
         this.mesas.addAll(Mesa.gerarMesas(8, 2));
@@ -21,6 +22,12 @@ public class Restaurante {
         Restaurante.requisicoesFinalizadas = new ArrayList<>();
     }
 
+    private List<Mesa> gerarMesas(int capacidade, int quant){
+        for (int i = 0; i < quant; i++) {
+            Mesa nova = new Mesa(capacidade);
+            mesas.add(nova);
+        }
+    }
     public String getNome() {
         return nome;
     }
@@ -63,7 +70,7 @@ public class Restaurante {
 
     public boolean procurarMesa(int quantidadePessoas) {
         for (Mesa mesa : mesas) {
-            if (mesa.getDisponivel() && mesa.getCapacidade() >= quantidadePessoas) {
+            if (mesa.isDisponivel() && mesa.getCapacidade() >= quantidadePessoas) {
                 return true;
             }
         }
@@ -72,7 +79,7 @@ public class Restaurante {
 
     public Mesa obterMesaDisponivel(int quantidadePessoas) {
         for (Mesa mesa : mesas) {
-            if (mesa.getDisponivel() && mesa.getCapacidade() >= quantidadePessoas) {
+            if (mesa.isDisponivel() && mesa.getCapacidade() >= quantidadePessoas) {
                 return mesa;
             }
         }
@@ -88,9 +95,9 @@ public class Restaurante {
         }
     }
 
-    public void finalizarRequisicao(Requisicao requisicao) {
+    public void finalizarRequisicao(int mesaID) {
+        Requisicao req = localizarAtendidas(mesaID);
         requisicao.finalizar(LocalDateTime.now());
-        requisicao.getMesa().setDisponivel(true);
         removerRequisicaoAtendida(requisicao);
         adicionarRequisicaoFinalizada(requisicao);
     }
