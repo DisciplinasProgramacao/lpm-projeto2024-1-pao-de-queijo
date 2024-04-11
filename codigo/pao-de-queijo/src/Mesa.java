@@ -3,7 +3,7 @@
 */
 public class Mesa{
     public int numero;
-    private int capacidade;
+    public int capacidade;
     private boolean disponivel;
 
     /**

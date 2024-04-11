@@ -16,7 +16,7 @@ public class RequisicaoTest {
 
     @BeforeEach
     public void setUp() {
-        cliente = new Cliente("João", "123456789");
+        cliente = new Cliente("João", (long)123456789);
         Date data = new Date();
         Date horaEntrada = new Date();
         requisicao = new Requisicao(1, data, horaEntrada, cliente);
