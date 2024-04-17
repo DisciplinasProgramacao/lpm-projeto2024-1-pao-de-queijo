@@ -5,6 +5,7 @@ import java.util.List;
 public class Restaurante {
 
     private String nome;
+    private List<Cliente> clientes;
     private List<Mesa> mesas;
     public static List<Requisicao> requisicoesPendentes;
     public static List<Requisicao> requisicoesAtendidas;
@@ -12,6 +13,7 @@ public class Restaurante {
 
     public Restaurante(String nome) {
         this.nome = nome;
+        this.clientes = new ArrayList<>();
         this.mesas = new ArrayList<>();
 
         this.mesas.addAll(Mesa.gerarMesas(4, 4));
@@ -68,6 +70,16 @@ public class Restaurante {
         Restaurante.requisicoesFinalizadas = requisicoesFinalizadas;
     }
 
+    public Cliente buscarCliente(long documento) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getDocumento() == documento) {
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+
     public boolean procurarMesa(int quantidadePessoas) {
         for (Mesa mesa : mesas) {
             if (mesa.isDisponivel() && mesa.getCapacidade() >= quantidadePessoas) {
@@ -100,6 +112,15 @@ public class Restaurante {
         requisicao.finalizar(LocalDateTime.now());
         removerRequisicaoAtendida(requisicao);
         adicionarRequisicaoFinalizada(requisicao);
+    }
+
+    public Requisicao localizarAtendidas(int mesaID) {
+        for (Requisicao req : requisicoesAtendidas) {
+            if (req.getMesa().getId() == mesaID) {
+                return req;
+            }
+        }
+        return null;
     }
 
     private void atribuirMesa(Mesa mesa, Cliente cliente) {
