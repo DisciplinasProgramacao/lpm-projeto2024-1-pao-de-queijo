@@ -18,7 +18,7 @@ public class RequisicaoTest {
     public void setUp() {
         cliente = new Cliente("João", (long)123456789);
         int quantClientes = 4 ;
-        requisicao = new Requisicao(1,quantClientes, cliente);
+        requisicao = new Requisicao(1,cliente);
 
         mesa = new Mesa(1, 4, true); // Exemplo de criação de uma Mesa. A classe Mesa deve ser definida para este teste.
     }

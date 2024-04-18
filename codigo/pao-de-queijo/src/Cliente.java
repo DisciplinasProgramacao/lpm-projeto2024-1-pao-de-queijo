@@ -7,11 +7,11 @@ public class Cliente {
     /**
      * Construtor da classe Cliente
      * @param nome
-     * @param documento
+     * @param string
      */
-    Cliente(String nome, Long documento) {
+    Cliente(String nome, Long string) {
         this.nome = nome;
-        this.documento = documento;
+        this.documento = string;
     }
 
     //#region Geters e Seters

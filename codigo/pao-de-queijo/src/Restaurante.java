@@ -25,19 +25,20 @@ public class Restaurante {
         this.clientes = new ArrayList<>();
         this.mesas = new ArrayList<>();
 
-        this.mesas.addAll(Mesa.gerarMesas(4, 4));
-        this.mesas.addAll(Mesa.gerarMesas(6, 4));
-        this.mesas.addAll(Mesa.gerarMesas(8, 2));
+        this.mesas.addAll(gerarMesas(4, 4, true));
+        this.mesas.addAll(gerarMesas(6, 4, true));
+        this.mesas.addAll(gerarMesas(8, 2, true));
         Restaurante.requisicoesPendentes = new ArrayList<>();
         Restaurante.requisicoesAtendidas = new ArrayList<>();
         Restaurante.requisicoesFinalizadas = new ArrayList<>();
     }
 
-    private List<Mesa> gerarMesas(int capacidade, int quant){
+    private List<Mesa> gerarMesas(int capacidade, int quant, boolean disponivel){
         for (int i = 0; i < quant; i++) {
-            Mesa nova = new Mesa(capacidade);
+            Mesa nova = new Mesa(capacidade, i, true);
             mesas.add(nova);
         }
+        return mesas;
     }
     public String getNome() {
         return nome;
@@ -100,9 +101,9 @@ public class Restaurante {
       public void criarRequisicao(Cliente cliente, int quantidadePessoas) {
         Mesa mesaDisponivel = procurarMesa(quantidadePessoas);
         if (mesaDisponivel != null) {
-            atribuirMesa(cliente, mesaDisponivel);
+            atribuirMesa(quantidadePessoas, cliente, mesaDisponivel);
         } else {
-            adicionarRequisicaoPendente(new Requisicao(cliente, quantidadePessoas));
+            adicionarRequisicaoPendente(new Requisicao(quantidadePessoas, cliente));
         }
     }
 
@@ -119,9 +120,9 @@ public class Restaurante {
         return null;
     }
 
-    private void atribuirMesa(Cliente cliente, Mesa mesa) {
+    private void atribuirMesa(int quantidadePessoas, Cliente cliente, Mesa mesa) {
         mesa.setDisponivel(false);
-        Requisicao requisicao = new Requisicao(cliente, mesa);
+        Requisicao requisicao = new Requisicao(quantidadePessoas, cliente);
         adicionarRequisicaoAtendida(requisicao);
     }
 
@@ -154,7 +155,7 @@ public class Restaurante {
         requisicoesPendentes.remove(requisicao);
     }
 
-    private void adicionarRequisicaoAtendida(Requisicao requisicao) {
+    void adicionarRequisicaoAtendida(Requisicao requisicao) {
         requisicoesAtendidas.add(requisicao);
     }
 

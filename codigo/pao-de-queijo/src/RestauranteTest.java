@@ -48,7 +48,7 @@ public class RestauranteTest {
     @Test
     public void testProcurarMesaExistente() {
         Restaurante restaurante = new Restaurante("Meu Restaurante");
-        Mesa mesa = new Mesa(4);
+        Mesa mesa = new Mesa(4, 4, true);
         restaurante.getMesas().add(mesa);
 
         Mesa mesaEncontrada = restaurante.procurarMesa(4);
@@ -70,8 +70,9 @@ public class RestauranteTest {
     public void testFinalizarRequisicaoExistente() {
         Restaurante restaurante = new Restaurante("Meu Restaurante");
         Cliente cliente = new Cliente("Ana", "11122233300");
-        Mesa mesa = new Mesa(4);
-        Requisicao requisicao = new Requisicao(cliente, mesa);
+        Mesa mesa = new Mesa(4, 5, false);
+        int quantidadePessoas = 5;
+        Requisicao requisicao = new Requisicao(quantidadePessoas, cliente);
         restaurante.adicionarRequisicaoAtendida(requisicao);
 
         restaurante.finalizarRequisicao(mesa.getNumero());

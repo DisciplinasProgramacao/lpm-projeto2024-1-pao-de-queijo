@@ -23,8 +23,7 @@ public class Requisicao {
       * @param horaEntrada Hora de entrada do cliente no restaurante.
       * @param cliente Cliente que fez a requisição.
       */
-     public Requisicao(int id, int quantClientes, Cliente cliente) {
-         this.id = id;
+     public Requisicao( int quantClientes, Cliente cliente) {
          this.quantClientes = quantClientes;
          this.cliente = cliente;
          this.atendida = false;
