@@ -50,9 +50,13 @@ public class App {
 
         System.out.print("Mesa para quantas pessoas? ");
         int quantPessoas = Integer.parseInt(scanner.nextLine());
-        requisicao = requisicao.criarRequisicao(cliente, quantPessoas);
+        requisicao = new Requisicao(quantPessoas, cliente);
 
         return requisicao;
+    }
+
+    static void validarMesa(Requisicao requisicao) {
+        
     }
 
     public static void main(String[] args) {
