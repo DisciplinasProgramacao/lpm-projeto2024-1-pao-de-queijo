@@ -2,16 +2,27 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List; 
 
+/**
+ * Representa o Restaurante
+ */
 public class Restaurante {
 
     private String nome;
+    private List<Cliente> clientes;
     private List<Mesa> mesas;
     public static List<Requisicao> requisicoesPendentes;
     public static List<Requisicao> requisicoesAtendidas;
     public static List<Requisicao> requisicoesFinalizadas;
 
+    /**
+     * Construtor da classe Restaurante.
+     * @param nome Nome do Restaurante
+     * @param clientes Lista de clientes
+     * @param mesas  Lista de mesas
+    */
     public Restaurante(String nome) {
         this.nome = nome;
+        this.clientes = new ArrayList<>();
         this.mesas = new ArrayList<>();
 
         this.mesas.addAll(Mesa.gerarMesas(4, 4));
@@ -68,16 +79,38 @@ public class Restaurante {
         Restaurante.requisicoesFinalizadas = requisicoesFinalizadas;
     }
 
-    public boolean procurarMesa(int quantidadePessoas) {
-        for (Mesa mesa : mesas) {
-            if (mesa.isDisponivel() && mesa.getCapacidade() >= quantidadePessoas) {
-                return true;
+    /**
+      * Verifica se o cliente é cadastrado
+      * @param documento É utilizado para a busca
+      */
+    public Cliente buscarCliente(long documento) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getDocumento() == documento) {
+                return cliente;
             }
         }
-        return false;
+        return null;
     }
 
-    public Mesa obterMesaDisponivel(int quantidadePessoas) {
+    /**
+      * Cria uma Requisição
+      * @param cliente É atribuido à Requisição
+      * @param quantidadePessoas É utilizado para buscar uma mesa disponível de acordo com a capacidade
+      */
+      public void criarRequisicao(Cliente cliente, int quantidadePessoas) {
+        Mesa mesaDisponivel = procurarMesa(quantidadePessoas);
+        if (mesaDisponivel != null) {
+            atribuirMesa(cliente, mesaDisponivel);
+        } else {
+            adicionarRequisicaoPendente(new Requisicao(cliente, quantidadePessoas));
+        }
+    }
+
+    /**
+      * Busca uma mesa disponível
+      * @param quantidadePessoas É utilizado para a buscar a mesa de acordo com a capacidade
+      */
+    public Mesa procurarMesa (int quantidadePessoas) {
         for (Mesa mesa : mesas) {
             if (mesa.isDisponivel() && mesa.getCapacidade() >= quantidadePessoas) {
                 return mesa;
@@ -86,26 +119,31 @@ public class Restaurante {
         return null;
     }
 
-    public void adicionarRequisicao(Cliente cliente, int quantidadePessoas) {
-        Mesa mesaDisponivel = obterMesaDisponivel(quantidadePessoas);
-        if (mesaDisponivel != null) {
-            atribuirMesa(mesaDisponivel, cliente);
-        } else {
-            adicionarRequisicaoPendente(new Requisicao(cliente, quantidadePessoas));
-        }
+    private void atribuirMesa(Cliente cliente, Mesa mesa) {
+        mesa.setDisponivel(false);
+        Requisicao requisicao = new Requisicao(cliente, mesa);
+        adicionarRequisicaoAtendida(requisicao);
     }
 
-    public void finalizarRequisicao(int mesaID) {
-        Requisicao req = localizarAtendidas(mesaID);
+
+    /**
+      * Finaliza uma Requisição
+      * @param numero Numero da mesa 
+      */
+    public void finalizarRequisicao(int numero) {
+        Requisicao requisicao = localizarAtendidas(numero);
         requisicao.finalizar(LocalDateTime.now());
         removerRequisicaoAtendida(requisicao);
         adicionarRequisicaoFinalizada(requisicao);
     }
 
-    private void atribuirMesa(Mesa mesa, Cliente cliente) {
-        mesa.setDisponivel(false);
-        Requisicao requisicao = new Requisicao(cliente, mesa, LocalDateTime.now());
-        adicionarRequisicaoAtendida(requisicao);
+    public Requisicao localizarAtendidas(int numero) {
+        for (Requisicao req : requisicoesAtendidas) {
+            if (req.getMesa().getNumero() == numero) {
+                return req;
+            }
+        }
+        return null;
     }
 
     private void adicionarRequisicaoPendente(Requisicao requisicao) {
