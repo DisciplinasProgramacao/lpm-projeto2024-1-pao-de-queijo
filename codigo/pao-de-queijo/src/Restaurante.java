@@ -25,9 +25,9 @@ public class Restaurante {
         this.clientes = new ArrayList<>();
         this.mesas = new ArrayList<>();
 
-        this.mesas.addAll(Mesa.gerarMesas(4, 4));
-        this.mesas.addAll(Mesa.gerarMesas(6, 4));
-        this.mesas.addAll(Mesa.gerarMesas(8, 2));
+        this.mesas.addAll(gerarMesas(4, 4));
+        this.mesas.addAll(gerarMesas(6, 4));
+        this.mesas.addAll(gerarMesas(8, 2));
         Restaurante.requisicoesPendentes = new ArrayList<>();
         Restaurante.requisicoesAtendidas = new ArrayList<>();
         Restaurante.requisicoesFinalizadas = new ArrayList<>();
@@ -35,10 +35,13 @@ public class Restaurante {
 
     private List<Mesa> gerarMesas(int capacidade, int quant){
         for (int i = 0; i < quant; i++) {
-            Mesa nova = new Mesa(capacidade);
+            Mesa nova = new Mesa(capacidade, false);
             mesas.add(nova);
         }
+
+        return mesas;
     }
+
     public String getNome() {
         return nome;
     }
@@ -95,36 +98,34 @@ public class Restaurante {
     /**
       * Cria uma Requisição
       * @param cliente É atribuido à Requisição
-      * @param quantidadePessoas É utilizado para buscar uma mesa disponível de acordo com a capacidade
+      * @param quantPessoas É utilizado para buscar uma mesa disponível de acordo com a capacidade
       */
-      public void criarRequisicao(Cliente cliente, int quantidadePessoas) {
-        Mesa mesaDisponivel = procurarMesa(quantidadePessoas);
+      public Requisicao criarRequisicao(Cliente cliente, int quantPessoas) {
+        Requisicao requisicao = new Requisicao(quantPessoas, cliente);
+
+        Mesa mesaDisponivel = procurarMesa(quantPessoas);
         if (mesaDisponivel != null) {
-            atribuirMesa(cliente, mesaDisponivel);
+             requisicao.associarMesa(mesaDisponivel);
+             adicionarRequisicaoAtendida(requisicao);
         } else {
-            adicionarRequisicaoPendente(new Requisicao(cliente, quantidadePessoas));
+            adicionarRequisicaoPendente(requisicao);
         }
+        
+        return requisicao;
     }
 
     /**
       * Busca uma mesa disponível
-      * @param quantidadePessoas É utilizado para a buscar a mesa de acordo com a capacidade
+      * @param quantPessoas É utilizado para a buscar a mesa de acordo com a capacidade
       */
-    public Mesa procurarMesa (int quantidadePessoas) {
+    public Mesa procurarMesa (int quantPessoas) {
         for (Mesa mesa : mesas) {
-            if (mesa.isDisponivel() && mesa.getCapacidade() >= quantidadePessoas) {
+            if (mesa.isDisponivel() && mesa.getCapacidade() >= quantPessoas) {
                 return mesa;
             }
         }
         return null;
     }
-
-    private void atribuirMesa(Cliente cliente, Mesa mesa) {
-        mesa.setDisponivel(false);
-        Requisicao requisicao = new Requisicao(cliente, mesa);
-        adicionarRequisicaoAtendida(requisicao);
-    }
-
 
     /**
       * Finaliza uma Requisição

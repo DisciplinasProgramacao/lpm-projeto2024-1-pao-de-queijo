@@ -30,4 +30,18 @@ public class Cardapio {
     public Bebida[] getBebidas() {
         return bebidas;
     }
+
+    /*
+    public String mostrarMenu(){
+        for (int i = 0; i < pratos.length; i++) {
+            sb.append((i+1)+": "+pratos[i]);
+        }
+        return sb.toString();
+    }
+
+    public Prato fazerPedido(int opcao){
+        int pos = opcao-1;
+        return pratos[pos];
+    }
+     */
 }

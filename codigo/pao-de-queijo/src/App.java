@@ -50,13 +50,9 @@ public class App {
 
         System.out.print("Mesa para quantas pessoas? ");
         int quantPessoas = Integer.parseInt(scanner.nextLine());
-        requisicao = new Requisicao(quantPessoas, cliente);
+        requisicao = restaurante.criarRequisicao(cliente, quantPessoas);
 
         return requisicao;
-    }
-
-    static void validarMesa(Requisicao requisicao) {
-        
     }
 
     public static void main(String[] args) {
@@ -73,8 +69,16 @@ public class App {
                     if (cliente == null) {
                         cliente = cadastrarNovoCliente();
                     }
+                    
                     requisicaoAtual = criarRequisicao(cliente);
-                    validarMesa(requisicaoAtual);
+                    System.out.println(requisicaoAtual);
+                    break;
+                    
+                case 2: 
+                    //System.out.println(cardapio.mostrarMenu());
+                    //int escolha = teclado.nexLine();
+                    //Prato escolhido = cardapio.fazerPedido(escolha);
+                    //requisicaoAtual.adicionarPrato(escolhido);
             }
             
         } while (opcao != 0);
