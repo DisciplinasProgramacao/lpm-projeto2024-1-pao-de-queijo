@@ -4,7 +4,18 @@ public class App {
     static Scanner scanner;
     static Restaurante restaurante = new Restaurante("Pão de Queijo");
 
+    public static void limpar() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    static void pausa() {
+        System.out.println("Tecle Enter para continuar.");
+        scanner.nextLine();
+    }
+
     static void cabecalho() {
+        limpar();
         System.out.println("========================================");
         System.out.println("Bem vindo ao Restaurante Pão de Queijo!");
         System.out.println("========================================");
@@ -22,25 +33,22 @@ public class App {
         return opcao;
     }
 
-    static Cliente buscarCliente() {
+    static Cliente buscarCliente(long documento) {
         Cliente cliente;
         cabecalho();
 
-        System.out.print("Qual o seu documento (somente números)? ");
-        long documento = Long.parseLong(scanner.nextLine());
         cliente = restaurante.buscarCliente(documento);
 
         return cliente;
     }
 
-    static Cliente cadastrarNovoCliente() {
+    static Cliente cadastrarNovoCliente(long documento) {
         Cliente cliente;
 
         System.out.print("Qual o seu nome? ");
         String nome = scanner.nextLine();
-        System.out.print("Qual o seu documento (somente números)? ");
-        long documento = Long.parseLong(scanner.nextLine());
         cliente = new Cliente(nome, documento);
+        restaurante.salvarNovoCliente(cliente);
 
         return cliente;
     }
@@ -48,7 +56,7 @@ public class App {
     static Requisicao criarRequisicao(Cliente cliente) {
         Requisicao requisicao;
 
-        System.out.print("Mesa para quantas pessoas? ");
+        System.out.print("Bem-vindo(a), " + cliente.getNome() + "! Mesa para quantas pessoas? ");
         int quantPessoas = Integer.parseInt(scanner.nextLine());
         requisicao = restaurante.criarRequisicao(cliente, quantPessoas);
 
@@ -65,13 +73,17 @@ public class App {
             opcao = menu();
             switch(opcao) {
                 case 1:
-                    cliente = buscarCliente();
+                    System.out.print("Qual o seu documento (somente números)? ");
+                    long documento = Long.parseLong(scanner.nextLine());
+                    
+                    cliente = buscarCliente(documento);
                     if (cliente == null) {
-                        cliente = cadastrarNovoCliente();
+                        cliente = cadastrarNovoCliente(documento);
                     }
                     
                     requisicaoAtual = criarRequisicao(cliente);
                     System.out.println(requisicaoAtual);
+                    pausa();
                     break;
                     
                 case 2: 

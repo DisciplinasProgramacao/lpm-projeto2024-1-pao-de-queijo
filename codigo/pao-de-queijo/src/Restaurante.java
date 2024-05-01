@@ -82,6 +82,10 @@ public class Restaurante {
         Restaurante.requisicoesFinalizadas = requisicoesFinalizadas;
     }
 
+    public void salvarNovoCliente(Cliente cliente) {
+        clientes.add(cliente);
+    }
+
     /**
       * Verifica se o cliente é cadastrado
       * @param documento É utilizado para a busca
