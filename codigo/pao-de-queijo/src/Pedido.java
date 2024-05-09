@@ -1,16 +1,27 @@
 public class Pedido {
-    private final Cardapio cardapio;
-    private final Mesa mesa;
+    private static int id;
+    private Cardapio cardapio;
+    private Mesa mesa;
+    private Requisicao requisicao;
     private double total;
+
+    public static int setId() {
+        id = id+1;
+        return id;
+    }
+    public static int getId() {
+        return id;
+    }
 
     /**
      * Construtor da classe Pedido.
      * @param cardapio Cardápio com os pratos e bebidas disponíveis.
      * @param mesa Mesa que está fazendo o pedido.
      */
-    public Pedido(Cardapio cardapio, Mesa mesa) {
+    public Pedido(Cardapio cardapio, Mesa mesa, Requisicao requisicao) {
         this.cardapio = cardapio;
         this.mesa = mesa;
+        this.requisicao = requisicao;
         this.total = 0;
     }
 
