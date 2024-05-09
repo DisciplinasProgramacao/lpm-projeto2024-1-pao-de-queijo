@@ -15,6 +15,7 @@ public class Requisicao {
      private Cliente cliente;
      private boolean atendida;
      private Mesa mesa;
+     private Pedido pedido;
  
      /**
       * Construtor da classe Requisicao.
@@ -62,6 +63,9 @@ public class Requisicao {
      public void associarMesa(Mesa mesa) {
          this.mesa = mesa;
      }
+     public void associarPedido(Pedido pedido){
+        this.pedido = pedido;
+     }
 
     /**
      * Finaliza a requisição, definindo a hora de saída e marcando como finalizada.
@@ -71,5 +75,6 @@ public class Requisicao {
         this.horaSaida = localDateTime;
         this.atendida = true;
         this.mesa.setDisponivel(true);
+        this.pedido.calcularValorPorPessoa();
     }
 }
