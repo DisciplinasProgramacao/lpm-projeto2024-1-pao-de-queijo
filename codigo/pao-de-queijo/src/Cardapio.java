@@ -31,8 +31,9 @@ public class Cardapio {
         return bebidas;
     }
 
-    /*
+    
     public String mostrarMenu(){
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < pratos.length; i++) {
             sb.append((i+1)+": "+pratos[i]);
         }
@@ -43,5 +44,5 @@ public class Cardapio {
         int pos = opcao-1;
         return pratos[pos];
     }
-     */
+     
 }
