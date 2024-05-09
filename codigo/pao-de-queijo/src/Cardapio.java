@@ -44,10 +44,5 @@ public class Cardapio {
         int pos = opcao-1;
         return pratos[pos];
     }
-    public Bebida pedirBebida(int escolha)
-    {
-        int pos = escolha-1;
-        return bebidas[pos];
-    }
      
 }
