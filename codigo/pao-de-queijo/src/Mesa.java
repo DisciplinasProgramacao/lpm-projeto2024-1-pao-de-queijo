@@ -2,14 +2,17 @@
  * Representa uma mesa no restaurante
 */
 public class Mesa{
-    //#region atributos de classe
+    //#region Atributos de classe
     private static int ultimoNumero = 0;
-    ////#endregion
+    //#endregion
 
+    //#region Atributos
     public int numero;
     public int capacidade;
     private boolean disponivel;
-    
+    //#endregion
+
+    //#region Construtor
     /**
      * Construtor da classe Mesa.
      * @param numero Numero da mesa
@@ -21,7 +24,9 @@ public class Mesa{
         this.capacidade = capacidade;
         this.disponivel = true;
     }
+    //#endregion
 
+    //#region Getters e Setters
     public int getNumero() {
         return numero;
     }
@@ -45,5 +50,5 @@ public class Mesa{
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
-
+    //#endregion
 }

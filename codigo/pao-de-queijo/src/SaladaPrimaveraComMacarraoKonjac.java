@@ -1,5 +1,5 @@
-class SaladaPrimaveraComMacarraoKonjac extends Prato {
+class SaladaPrimaveraComMacarraoKonjac extends Item {
     public SaladaPrimaveraComMacarraoKonjac() {
-        super(25);
+        super(25, "Salada Primavera Com Macarrao Konjac");
     }
 }

@@ -7,13 +7,16 @@ import java.util.List;
  */
 public class Restaurante {
 
+    //#region Atributos
     private String nome;
     private List<Cliente> clientes;
     private List<Mesa> mesas;
     public static List<Requisicao> requisicoesPendentes;
     public static List<Requisicao> requisicoesAtendidas;
     public static List<Requisicao> requisicoesFinalizadas;
+    //#endregion
 
+    //#region Construtor
     /**
      * Construtor da classe Restaurante.
      * @param nome Nome do Restaurante
@@ -28,20 +31,14 @@ public class Restaurante {
         this.mesas.addAll(gerarMesas(4, 4));
         this.mesas.addAll(gerarMesas(6, 4));
         this.mesas.addAll(gerarMesas(8, 2));
+
         Restaurante.requisicoesPendentes = new ArrayList<>();
         Restaurante.requisicoesAtendidas = new ArrayList<>();
         Restaurante.requisicoesFinalizadas = new ArrayList<>();
     }
+    //#endregion
 
-    private List<Mesa> gerarMesas(int capacidade, int quant){
-        for (int i = 0; i < quant; i++) {
-            Mesa nova = new Mesa(capacidade, false);
-            mesas.add(nova);
-        }
-
-        return mesas;
-    }
-
+    //#region Geters e Seters
     public String getNome() {
         return nome;
     }
@@ -81,7 +78,28 @@ public class Restaurante {
     public void setRequisicoesFinalizadas(List<Requisicao> requisicoesFinalizadas) {
         Restaurante.requisicoesFinalizadas = requisicoesFinalizadas;
     }
+    //#endregion
 
+    //#region Métodos
+    /**
+     * Popula a lista de mesas
+     * @param capacidade Valor da capacidade das mesas que serão geradas
+     * @param quant Valor da quantidade de mesas a serem geradas
+     * @return Retorna a lista de mesas
+     */
+    private List<Mesa> gerarMesas(int capacidade, int quant) {
+        for (int i = 0; i < quant; i++) {
+            Mesa nova = new Mesa(capacidade, false);
+            mesas.add(nova);
+        }
+
+        return mesas;
+    }
+
+    /**
+      * Salva um novo cliente na lista
+      * @param cliente cliente a salvo
+      */
     public void salvarNovoCliente(Cliente cliente) {
         clientes.add(cliente);
     }
@@ -96,6 +114,7 @@ public class Restaurante {
                 return cliente;
             }
         }
+
         return null;
     }
 
@@ -122,55 +141,88 @@ public class Restaurante {
       * Busca uma mesa disponível
       * @param quantPessoas É utilizado para a buscar a mesa de acordo com a capacidade
       */
-    public Mesa procurarMesa (int quantPessoas) {
+    private Mesa procurarMesa (int quantPessoas) {
         for (Mesa mesa : mesas) {
             if (mesa.isDisponivel() && mesa.getCapacidade() >= quantPessoas) {
                 return mesa;
             }
         }
+
         return null;
     }
 
     /**
       * Finaliza uma Requisição
-      * @param numero Numero da mesa 
+      * @param numero Número da mesa 
       */
-    public void finalizarRequisicao(int numero) {
+    public String finalizarRequisicao(int numero) {
         Requisicao requisicao = localizarAtendidas(numero);
-        requisicao.finalizar(LocalDateTime.now());
+        requisicao.finalizar();
         removerRequisicaoAtendida(requisicao);
         adicionarRequisicaoFinalizada(requisicao);
+
+        return "Requisição " + requisicao.getId() + " finalizada com sucesso, " + "mesa " + requisicao.getMesa().getNumero() + " liberada.";
     }
 
-    public Requisicao localizarAtendidas(int numero) {
+    /**
+     * Localiza uma requisição atendida
+     * @param numero Número da mesa
+     * @return Retorna a requisição
+     */
+    private Requisicao localizarAtendidas(int numero) {
         for (Requisicao req : requisicoesAtendidas) {
             if (req.getMesa().getNumero() == numero) {
                 return req;
             }
         }
+
         return null;
     }
 
+    /**
+     * Adiciona uma requisição à lista de requisições pendentes
+     * @param requisicao
+     */
     private void adicionarRequisicaoPendente(Requisicao requisicao) {
         requisicoesPendentes.add(requisicao);
     }
 
+    /**
+     * Remove uma requisição à lista de requisições pendentes
+     * @param requisicao
+     */
     private void removerRequisicaoPendente(Requisicao requisicao) {
         requisicoesPendentes.remove(requisicao);
     }
 
+    /**
+     * Adiciona uma requisição à lista de requisições atendidas
+     * @param requisicao
+     */
     private void adicionarRequisicaoAtendida(Requisicao requisicao) {
         requisicoesAtendidas.add(requisicao);
     }
 
+    /**
+     * Remove uma requisição à lista de requisições atendidas
+     * @param requisicao
+     */
     private void removerRequisicaoAtendida(Requisicao requisicao) {
         requisicoesAtendidas.remove(requisicao);
     }
 
+    /**
+     * Adiciona uma requisição à lista de requisições finalizadas
+     * @param requisicao
+     */
     public void adicionarRequisicaoFinalizada(Requisicao requisicao) {
         requisicoesFinalizadas.add(requisicao);
     }
 
+    /**
+     * Remove uma requisição à lista de requisições finalizadas
+     * @param requisicao
+     */
     public void removerRequisicaoFinalizada(Requisicao requisicao) {
         requisicoesFinalizadas.remove(requisicao);
     }

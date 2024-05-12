@@ -1,41 +1,44 @@
-public class Pedido {
-    private final Cardapio cardapio;
-    private final Mesa mesa;
-    private double total;
+import java.util.ArrayList;
+import java.util.List;
 
+public class Pedido {
+    //#region Atributos
+    private static final double GORJETA = 1.1;
+    private static List<Item> itens;
+    private final Requisicao requisicao;
+    private double total;
+    //#endregion
+
+    //#region Construtor
     /**
      * Construtor da classe Pedido.
      * @param cardapio Cardápio com os pratos e bebidas disponíveis.
      * @param mesa Mesa que está fazendo o pedido.
      */
-    public Pedido(Cardapio cardapio, Mesa mesa) {
-        this.cardapio = cardapio;
-        this.mesa = mesa;
+    public Pedido(Requisicao requisicao) {
+        Pedido.itens = new ArrayList<>();
+        this.requisicao = requisicao;
         this.total = 0;
     }
+    //#endregion
 
+    //#region Métodos
     /**
-     * Adiciona um prato ao pedido.
-     * @param prato Prato a ser adicionado.
+     * Adiciona um item do cardápio ao pedido
+     * @param prato
+     * @param conta
      */
-    public void adicionarPrato(Prato prato) {
-        this.total += prato.getValor();
-    }
-
-    /**
-     * Adiciona uma bebida ao pedido.
-     * @param bebida Bebida a ser adicionada.
-     */
-    public void adicionarBebida(Bebida bebida) {
-        this.total += bebida.getValor();
+    public void adicionarItem(Item item) {
+        itens.add(item);
+        this.total += item.getValor();
     }
 
     /**
      * Calcula a conta final do pedido.
      * @return Valor total do pedido com a taxa de 10%.
      */
-    public double calcularContaFinal() {
-        return this.total * 1.10;
+    public double calcularTotal() {
+        return this.total * GORJETA;
     }
 
     /**
@@ -43,6 +46,12 @@ public class Pedido {
      * @return Valor a ser pago por pessoa.
      */
     public double calcularValorPorPessoa() {
-        return calcularContaFinal() / mesa.getCapacidade();
+        return calcularTotal() / requisicao.getMesa().getCapacidade();
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
+    //#endregion
 }

@@ -1,5 +1,5 @@
-class FalafelAssado extends Prato {
+class FalafelAssado extends Item {
     public FalafelAssado() {
-        super(20);
+        super(20, "Falafel Assado");
     }
 }

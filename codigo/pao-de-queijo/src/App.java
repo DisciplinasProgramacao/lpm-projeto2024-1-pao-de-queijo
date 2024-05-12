@@ -26,7 +26,9 @@ public class App {
         cabecalho();
 
         System.out.println("1 - Abrir Requisicao");
-        System.out.println("2 - Cardápio");
+        System.out.println("2 - Requisicoes Abertas");
+        System.out.println("3 - Requisicoes Pendentes");
+        System.out.println("4 - Finalizar Requisicao");
         System.out.println("0 - Sair");
         System.out.print("Digite sua opção: ");
         opcao = Integer.parseInt(scanner.nextLine());
@@ -64,9 +66,59 @@ public class App {
         return requisicao;
     }
 
+    static Item menuCardapio() {
+        int opcao;
+        Item item;
+        cabecalho();
+
+        System.out.println("1 - Cardápio de Pratos");
+        System.out.println("2 - Cardápio de Bebibas");
+        System.out.println("0 - Sair");
+        System.out.print("Digite sua opção: ");
+        opcao = Integer.parseInt(scanner.nextLine());
+
+        switch (opcao) {
+            case 1:
+                item = menuPratos();
+                break;
+
+            case 2: 
+                item = menuBebidas();
+        
+            default:
+                item = null;
+                break;
+        }
+
+        return item;
+    }
+
+    static Item menuPratos() {
+        limpar();
+        CardapioPratos cardapio = new CardapioPratos();
+        System.out.println(cardapio.mostrarMenu());
+        System.out.println("Qual o número do prato que gostaria?");
+        int escolha = scanner.nextInt();
+        Item item = cardapio.itemEscolhido(escolha);
+
+        return item;
+    }
+
+    static Item menuBebidas() {
+        limpar();
+        CardapioBebidas cardapio = new CardapioBebidas();
+        System.out.println(cardapio.mostrarMenu());
+        System.out.println("Qual o número da bebida que gostaria?");
+        int escolha = scanner.nextInt();
+        Item item = cardapio.itemEscolhido(escolha);
+
+        return item;
+    }
+
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
         Requisicao requisicaoAtual;
+        Pedido pedido;
         Cliente cliente;
         int opcao;
         
@@ -85,13 +137,29 @@ public class App {
                     requisicaoAtual = criarRequisicao(cliente);
                     System.out.println(requisicaoAtual);
                     pausa();
+
+                    Item itemEscolhido = menuCardapio();
+                    pedido = new Pedido(requisicaoAtual);
+                    pedido.adicionarItem(itemEscolhido);
+                    pausa();
                     break;
                     
                 case 2: 
-                    //System.out.println(cardapio.mostrarMenu());
-                    //int escolha = teclado.nexLine();
-                    //Prato escolhido = cardapio.fazerPedido(escolha);
-                    //requisicaoAtual.adicionarPrato(escolhido);
+                    restaurante.getRequisicoesAtendidas();
+                    pausa();
+                    break;
+                    
+                case 3: 
+                    restaurante.getRequisicoesPendentes();
+                    pausa();
+                    break;
+
+                case 4: 
+                    System.out.println("Qual o número requisição que deseja finalizar?");
+                    int numero = scanner.nextInt();
+                    System.out.println(restaurante.finalizarRequisicao(numero));
+                    pausa();
+                    break;
             }
             
         } while (opcao != 0);

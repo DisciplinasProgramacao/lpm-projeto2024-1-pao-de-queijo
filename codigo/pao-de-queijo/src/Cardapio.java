@@ -1,48 +1,48 @@
 public class Cardapio {
-    private final Prato[] pratos = {
-            new MoquecaDePalmito(),
-            new FalafelAssado(),
-            new SaladaPrimaveraComMacarraoKonjac(),
-            new EscondidinhoDeInhame(),
-            new StrogonoffDeCogumelos()
-    };
+    //#region Atributos de classe
+    private String descricao;
+    private Item[] itens;
+    //#endregion
 
-    private final Bebida[] bebidas = {
-            new Agua(),
-            new CopoDeSuco(),
-            new RefrigeranteOrganico(),
-            new CervejaVegana(),
-            new TacaDeVinhoVegano()
-    };
-
-    /**
-     * Obtém a lista de pratos disponíveis.
-     * @return Lista de pratos.
-     */
-    public Prato[] getPratos() {
-        return pratos;
+    //#region Contrutor
+    protected Cardapio(String descricao, Item[] itens) {
+        init(descricao, itens);
     }
+    //#endregion
 
-    /**
-     * Obtém a lista de bebidas disponíveis.
-     * @return Lista de bebidas.
-     */
-    public Bebida[] getBebidas() {
-        return bebidas;
+    //#region Inicializador
+    private void init(String descricao, Item[] itens) {
+        this.descricao = descricao;
+        this.itens = itens;
     }
+    //#endregion
 
-    
+    //#region Métodos de negócio
+    /**
+     * Mostra o menu com todos pratos e bebibas disponíveis
+     * @return Retorna a String
+     */
     public String mostrarMenu(){
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < pratos.length; i++) {
-            sb.append((i+1)+": "+pratos[i]);
+
+        sb.append("////// " + descricao + " //////");
+        sb.append("\n");
+        for (int i = 0; i < itens.length; i++) {
+            sb.append((i+1) + ": " + itens[i].descricao);
+            sb.append("\n");
         }
+        
         return sb.toString();
     }
 
-    public Prato fazerPedido(int opcao){
-        int pos = opcao-1;
-        return pratos[pos];
+    /**
+     * Retorna o Item correspondente ao numero escolhido.
+     * @param opcao
+     * @return
+     */
+    public Item itemEscolhido(int opcao){
+        int pos = opcao - 1;
+        return itens[pos];
     }
-     
+    //#endregion
 }
