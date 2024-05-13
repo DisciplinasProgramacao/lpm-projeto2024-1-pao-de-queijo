@@ -1,4 +1,4 @@
-public class Cardapio {
+public abstract class Cardapio {
     //#region Atributos de classe
     private String descricao;
     private Item[] itens;

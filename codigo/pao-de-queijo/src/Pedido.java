@@ -5,7 +5,7 @@ public class Pedido {
     //#region Atributos
     private static final double GORJETA = 1.1;
     private static List<Item> itens;
-    private final Requisicao requisicao;
+    private Requisicao requisicao;
     private double total;
     //#endregion
 
@@ -28,9 +28,11 @@ public class Pedido {
      * @param prato
      * @param conta
      */
-    public void adicionarItem(Item item) {
+    public String adicionarItem(Item item) {
         itens.add(item);
         this.total += item.getValor();
+
+        return String.format("%s adicionado(a) com sucesso ao pedido da mesa %d.", item.descricao, requisicao.getMesa().getNumero());
     }
 
     /**
@@ -51,7 +53,15 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nMesa " + requisicao.getMesa().getNumero() + ": \n");
+
+        for (int i = 0; i < this.itens.size(); i++) {
+            sb.append(itens.get(i).descricao + " = R$" + itens.get(i).getValor());
+            sb.append("\n");
+        }
+        
+        return sb.toString();
     }
     //#endregion
 }

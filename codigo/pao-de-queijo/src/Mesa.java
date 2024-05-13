@@ -7,8 +7,8 @@ public class Mesa{
     //#endregion
 
     //#region Atributos
-    public int numero;
-    public int capacidade;
+    private int numero;
+    private int capacidade;
     private boolean disponivel;
     //#endregion
 
@@ -19,7 +19,7 @@ public class Mesa{
      * @param capacidade Capacidade da mesa
      * @param disponivel Mostra se a mesa esta disponivel (diponivel = true) ou não (disponivel = false)
     */
-    public Mesa(int capacidade, boolean disponivel) {
+    public Mesa(int capacidade) {
         this.numero = ++ultimoNumero;
         this.capacidade = capacidade;
         this.disponivel = true;

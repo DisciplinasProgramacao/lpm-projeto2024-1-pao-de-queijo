@@ -1,4 +1,5 @@
 public class CardapioPratos extends Cardapio {
+
     //#region Construtor
     public CardapioPratos() {
         super("Cardápio de Pratos", inicializarPratos());

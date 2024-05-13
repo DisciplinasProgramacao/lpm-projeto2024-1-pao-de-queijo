@@ -64,6 +64,10 @@ public class Requisicao {
     public Mesa getMesa() {
         return mesa;
     }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
     //#endregion
 
     //#region Métodos
@@ -77,8 +81,22 @@ public class Requisicao {
         mesa.setDisponivel(false);
     }
 
+    /**
+     * Associa um pedido à requisição.
+     * 
+     * @param pedido Pedido a ser associado à requisição.
+     */
     public void associarPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    /**
+     * Retorna o pedido associado a requisicao
+     * 
+     * @return Pedido da requisição
+     */
+    public Pedido localizarPedido() {
+        return pedido;
     }
 
     /**
@@ -93,9 +111,9 @@ public class Requisicao {
     @Override
     public String toString() {
         if (mesa == null) {
-            return "Requisição " + id + " em espera para " + quantPessoas + " clientes";
+            return "\nRequisição " + id + " em espera para " + quantPessoas + " pessoas | Cliente: " + cliente.getNome();
         } else {
-            return "Requisição " + id + " na mesa " + mesa.getNumero() + " com " + quantPessoas + " clientes";
+            return "\nRequisição " + id + " na mesa " + mesa.getNumero() + " com " + quantPessoas + " pessoas | Cliente: " + cliente.getNome();
         }
     }
     //#endregion

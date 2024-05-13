@@ -1,4 +1,3 @@
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List; 
 
@@ -11,9 +10,10 @@ public class Restaurante {
     private String nome;
     private List<Cliente> clientes;
     private List<Mesa> mesas;
-    public static List<Requisicao> requisicoesPendentes;
-    public static List<Requisicao> requisicoesAtendidas;
-    public static List<Requisicao> requisicoesFinalizadas;
+    private static List<Requisicao> requisicoesPendentes;
+    private static List<Requisicao> requisicoesAtendidas;
+    private static List<Requisicao> requisicoesFinalizadas;
+    private static List<Requisicao> todasRequisicoes;
     //#endregion
 
     //#region Construtor
@@ -27,73 +27,80 @@ public class Restaurante {
         this.nome = nome;
         this.clientes = new ArrayList<>();
         this.mesas = new ArrayList<>();
-
-        this.mesas.addAll(gerarMesas(4, 4));
-        this.mesas.addAll(gerarMesas(6, 4));
-        this.mesas.addAll(gerarMesas(8, 2));
+        criarMesas();
 
         Restaurante.requisicoesPendentes = new ArrayList<>();
         Restaurante.requisicoesAtendidas = new ArrayList<>();
         Restaurante.requisicoesFinalizadas = new ArrayList<>();
+        Restaurante.todasRequisicoes = new ArrayList<>();
     }
     //#endregion
 
-    //#region Geters e Seters
+    //#region Geters
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public List<Mesa> getMesas() {
         return mesas;
     }
 
-    public void setMesas(List<Mesa> mesas) {
-        this.mesas = mesas;
-    }
-
     public List<Requisicao> getRequisicoesPendentes() {
         return requisicoesPendentes;
-    }
-
-    public void setRequisicoesPendentes(List<Requisicao> requisicoesPendentes) {
-        Restaurante.requisicoesPendentes = requisicoesPendentes;
     }
 
     public List<Requisicao> getRequisicoesAtendidas() {
         return requisicoesAtendidas;
     }
 
-    public void setRequisicoesAtendidas(List<Requisicao> requisicoesAtendidas) {
-        Restaurante.requisicoesAtendidas = requisicoesAtendidas;
-    }
-
     public List<Requisicao> getRequisicoesFinalizadas() {
         return requisicoesFinalizadas;
     }
 
-    public void setRequisicoesFinalizadas(List<Requisicao> requisicoesFinalizadas) {
-        Restaurante.requisicoesFinalizadas = requisicoesFinalizadas;
+    public List<Requisicao> getTodasRequisicoes() {
+        return todasRequisicoes;
     }
     //#endregion
 
     //#region Métodos
+    
+    /**
+     * Chama o método de gerar as mesas 
+     * do restaurante que possui:
+     * 4 mesas para 4 pessoas,
+     * 4 mesas para 6 pessoas,
+     * 2 mesas para 8 pessoas
+     */
+    private void criarMesas() {
+        gerarMesas(4, 4);
+        gerarMesas(6, 4);
+        gerarMesas(8, 2);
+    }
+
     /**
      * Popula a lista de mesas
      * @param capacidade Valor da capacidade das mesas que serão geradas
-     * @param quant Valor da quantidade de mesas a serem geradas
-     * @return Retorna a lista de mesas
+     * @param quantidade Valor da quantidade de mesas a serem geradas
      */
-    private List<Mesa> gerarMesas(int capacidade, int quant) {
-        for (int i = 0; i < quant; i++) {
-            Mesa nova = new Mesa(capacidade, false);
-            mesas.add(nova);
+    private void gerarMesas(int capacidade, int quantidade) {
+        for (int i = 1; i <= quantidade; i++) {
+            mesas.add(new Mesa(capacidade));
         }
+    }
 
-        return mesas;
+    /**
+     * Imprime a lista de mesas
+     * @return String com a lista das mesas
+     */
+    public String imprimirMesas() {
+        StringBuilder sb = new StringBuilder();
+        
+        for (int i = 0; i < this.mesas.size(); i++) {
+            sb.append("Mesa " + mesas.get(i).getNumero() + " | Capacidade: " + mesas.get(i).getCapacidade() + " | Disponivel: " + mesas.get(i).isDisponivel());
+            sb.append("\n");
+        }
+        
+        return sb.toString();
     }
 
     /**
@@ -123,13 +130,14 @@ public class Restaurante {
       * @param cliente É atribuido à Requisição
       * @param quantPessoas É utilizado para buscar uma mesa disponível de acordo com a capacidade
       */
-      public Requisicao criarRequisicao(Cliente cliente, int quantPessoas) {
+    public Requisicao criarRequisicao(Cliente cliente, int quantPessoas) {
         Requisicao requisicao = new Requisicao(quantPessoas, cliente);
+        adicionarATodas(requisicao);
 
         Mesa mesaDisponivel = procurarMesa(quantPessoas);
         if (mesaDisponivel != null) {
-             requisicao.associarMesa(mesaDisponivel);
-             adicionarRequisicaoAtendida(requisicao);
+            requisicao.associarMesa(mesaDisponivel);
+            adicionarRequisicaoAtendida(requisicao);
         } else {
             adicionarRequisicaoPendente(requisicao);
         }
@@ -141,7 +149,7 @@ public class Restaurante {
       * Busca uma mesa disponível
       * @param quantPessoas É utilizado para a buscar a mesa de acordo com a capacidade
       */
-    private Mesa procurarMesa (int quantPessoas) {
+    private Mesa procurarMesa(int quantPessoas) {
         for (Mesa mesa : mesas) {
             if (mesa.isDisponivel() && mesa.getCapacidade() >= quantPessoas) {
                 return mesa;
@@ -153,10 +161,10 @@ public class Restaurante {
 
     /**
       * Finaliza uma Requisição
-      * @param numero Número da mesa 
+      * @param mesa Número da mesa 
       */
-    public String finalizarRequisicao(int numero) {
-        Requisicao requisicao = localizarAtendidas(numero);
+    public String finalizarRequisicao(int mesa) {
+        Requisicao requisicao = localizarAtendida(mesa);
         requisicao.finalizar();
         removerRequisicaoAtendida(requisicao);
         adicionarRequisicaoFinalizada(requisicao);
@@ -169,9 +177,9 @@ public class Restaurante {
      * @param numero Número da mesa
      * @return Retorna a requisição
      */
-    private Requisicao localizarAtendidas(int numero) {
+    public Requisicao localizarAtendida(int mesa) {
         for (Requisicao req : requisicoesAtendidas) {
-            if (req.getMesa().getNumero() == numero) {
+            if (req.getMesa().getNumero() == mesa) {
                 return req;
             }
         }
@@ -179,6 +187,7 @@ public class Restaurante {
         return null;
     }
 
+    //#region Métodos das listas de requisicoes
     /**
      * Adiciona uma requisição à lista de requisições pendentes
      * @param requisicao
@@ -226,4 +235,13 @@ public class Restaurante {
     public void removerRequisicaoFinalizada(Requisicao requisicao) {
         requisicoesFinalizadas.remove(requisicao);
     }
+
+    /**
+     * Adiciona uma requisição à lista de requisições finalizadas
+     * @param requisicao
+     */
+    public void adicionarATodas(Requisicao requisicao) {
+        todasRequisicoes.add(requisicao);
+    }
+    //#endregion
 }
