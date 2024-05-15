@@ -267,10 +267,14 @@ public class App {
 
                         case 2:
                             requisicao = buscarRequisicao();
-                            pedido = requisicao.localizarPedido();
-                            System.out.println(pedido);
-                            pausa();
-                            break;
+                 if (requisicao != null) {
+                    pedido = requisicao.getPedido();
+                    System.out.println(pedido);
+                     pausa();
+                 } else {
+                     System.out.println("Tecle Enter para voltar ao menu principal.");
+                     scanner.nextLine();
+                 }
 
                     }
                     break;
