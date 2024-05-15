@@ -151,7 +151,7 @@ public class Restaurante {
       */
     private Mesa procurarMesa(int quantPessoas) {
         for (Mesa mesa : mesas) {
-            if (mesa.isDisponivel() && mesa.getCapacidade() >= quantPessoas) {
+            if (mesa.atendeRequisicao(quantPessoas)) {
                 return mesa;
             }
         }
