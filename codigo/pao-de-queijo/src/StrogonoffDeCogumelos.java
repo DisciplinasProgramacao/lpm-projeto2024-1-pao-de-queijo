@@ -1,5 +1,5 @@
-class StrogonoffDeCogumelos extends Prato {
+class StrogonoffDeCogumelos extends Item {
     public StrogonoffDeCogumelos() {
-        super(35);
+        super(35, "Strogonoff de Cogumelos");
     }
 }

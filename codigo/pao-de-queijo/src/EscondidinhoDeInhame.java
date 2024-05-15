@@ -1,5 +1,5 @@
-class EscondidinhoDeInhame extends Prato {
+class EscondidinhoDeInhame extends Item {
     public EscondidinhoDeInhame() {
-        super(18);
+        super(18, "Escondidinho de Inhame");
     }
 }

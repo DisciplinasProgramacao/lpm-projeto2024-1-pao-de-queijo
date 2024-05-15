@@ -1,7 +1,5 @@
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Representa uma requisição de um cliente em um restaurante.
@@ -11,6 +9,8 @@ public class Requisicao {
     //#region atributos de classe
     private static int ultimoId = 0;
     ////#endregion
+
+    //#region atributos
     private int id;
     private Date data;
     private int quantPessoas;
@@ -21,6 +21,7 @@ public class Requisicao {
     private Pedido pedido;
     //#endregion
 
+    //#region Contrutor
     /**
      * Construtor da classe Requisicao.
      * 
@@ -36,7 +37,9 @@ public class Requisicao {
         this.atendida = false;
         this.mesa = null;
     }
+    //#endregion
 
+    //#region Getters e Setters
     public int getId() {
         return id;
     }
@@ -62,9 +65,12 @@ public class Requisicao {
         return mesa;
     }
 
-    public Pedido getPedido(){
+    public Pedido getPedido() {
         return pedido;
     }
+    //#endregion
+
+    //#region Métodos
     /**
      * Associa uma mesa à requisição.
      * 
@@ -75,24 +81,41 @@ public class Requisicao {
         mesa.setDisponivel(false);
     }
 
-    @Override
-    public String toString() {
-        if (mesa == null) {
-            return "Requisição " + id + " em espera para " + quantPessoas + " clientes";
-        } else {
-            return "Requisição " + id + " na mesa " + mesa.getNumero() + " com " + quantPessoas + " clientes";
-        }
+    /**
+     * Associa um pedido à requisição.
+     * 
+     * @param pedido Pedido a ser associado à requisição.
+     */
+    public void associarPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
+
+    /**
+     * Retorna o pedido associado a requisicao
+     * 
+     * @return Pedido da requisição
+     */
+    public Pedido localizarPedido() {
+        return pedido;
+    }
+
     /**
      * Finaliza a requisição, definindo a hora de saída e marcando como finalizada.
-     * 
-     * @param localDateTime Hora em que o cliente saiu do restaurante.
      */
-    public void finalizar(LocalDateTime localDateTime) {
-        this.horaSaida = localDateTime;
+    public void finalizar() {
+        this.horaSaida = LocalDateTime.now();
         this.atendida = true;
         this.mesa.setDisponivel(true);
         this.pedido.calcularValorPorPessoa();
     }
 
+    @Override
+    public String toString() {
+        if (mesa == null) {
+            return "\nRequisição " + id + " em espera para " + quantPessoas + " pessoas | Cliente: " + cliente.getNome();
+        } else {
+            return "\nRequisição " + id + " na mesa " + mesa.getNumero() + " com " + quantPessoas + " pessoas | Cliente: " + cliente.getNome();
+        }
+    }
+    //#endregion
 }

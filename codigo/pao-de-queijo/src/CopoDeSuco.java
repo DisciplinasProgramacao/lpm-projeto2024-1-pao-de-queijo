@@ -1,5 +1,5 @@
-class CopoDeSuco extends Bebida {
+class CopoDeSuco extends Item {
     public CopoDeSuco() {
-        super(7);
+        super(7, "Copo de Suco");
     }
 }
