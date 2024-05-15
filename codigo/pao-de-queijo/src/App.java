@@ -199,7 +199,7 @@ public class App {
                     switch (opcao) {
                         case 1:
                             requisicao = abrirRequisicao();
-                            pedido = new Pedido(requisicao);
+                            pedido = new Pedido();
                             System.out.println(requisicao);
                             pausa();
                             break;
@@ -253,8 +253,7 @@ public class App {
                                 Item itemEscolhido = menuCardapio();
                                 pedido = requisicao.getPedido();
                                 if (pedido == null) {
-                                    pedido = new Pedido(requisicao);
-                                    requisicao.associarPedido(pedido);
+                                    pedido = new Pedido();
                                 }
                                 
                                 System.out.println(pedido.adicionarItem(itemEscolhido));
@@ -280,13 +279,7 @@ public class App {
                     cabecalhoMesas();
                     System.out.println(restaurante.imprimirMesas());
                     pausa();
-                    break;
-                    
-                case 2: 
-                    System.out.println(Cardapio.mostrarMenu());
-                    int escolha = scanner.next();
-                    Prato escolhido = Cardapioardapio.fazerPedido(escolha);
-                    requisicaoAtual.adicionarPrato(escolhido);
+                break;
             }
             
         } while (opcao != 0);

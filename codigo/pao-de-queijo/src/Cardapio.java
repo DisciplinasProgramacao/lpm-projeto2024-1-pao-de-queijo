@@ -1,7 +1,7 @@
 public abstract class Cardapio {
     //#region Atributos de classe
-    private String descricao;
-    private Item[] itens;
+    private static String descricao;
+    private static Item[] itens;
     //#endregion
 
     //#region Contrutor
@@ -18,14 +18,7 @@ public abstract class Cardapio {
     //#endregion
 
     //#region Métodos de negócio
-    /**
-     * Obtém a lista de bebidas disponíveis.
-     * @return Lista de bebidas.
-     */
-    public Bebida[] getBebidas() {
-        return bebidas;
-    }
-
+ 
     
     public static String mostrarMenu(){
         StringBuilder sb = new StringBuilder();
