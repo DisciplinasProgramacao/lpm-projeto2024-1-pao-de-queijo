@@ -51,4 +51,16 @@ public class Mesa{
         this.disponivel = disponivel;
     }
     //#endregion
+
+    //#region Métodos
+    public boolean atendeRequisicao(int quantPessoas) {
+        boolean atende = false;
+
+        if (this.disponivel && this.capacidade >= quantPessoas) {
+            atende = true;
+        }
+
+        return atende;
+    }
+    //#endregion
 }
