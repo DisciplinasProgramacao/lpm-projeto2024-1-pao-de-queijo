@@ -21,21 +21,21 @@ public class Requisicao {
     private Pedido pedido;
     //#endregion
 
-    //#region Contrutor
+    //#region Construtor
     /**
      * Construtor da classe Requisicao.
      * 
-     * @param id          Identificador da requisição.
-     * @param data        Data da requisição.
-     * @param horaEntrada Hora de entrada do cliente no restaurante.
-     * @param cliente     Cliente que fez a requisição.
+     * @param quantPessoas Quantidade de pessoas na requisição.
+     * @param cliente      Cliente que fez a requisição.
      */
     public Requisicao(int quantPessoas, Cliente cliente) {
         this.id = ++ultimoId;
+        this.data = new Date();
         this.quantPessoas = quantPessoas;
         this.cliente = cliente;
         this.atendida = false;
         this.mesa = null;
+        this.pedido = new Pedido();
     }
     //#endregion
 
@@ -44,9 +44,8 @@ public class Requisicao {
         return id;
     }
 
-    public int getquantPessoas() {
+    public int getQuantPessoas() {
         return quantPessoas;
-
     }
 
     public Cliente getCliente() {
@@ -82,31 +81,41 @@ public class Requisicao {
     }
 
     /**
-     * Associa um pedido à requisição.
+     * Adiciona um item ao pedido associado à requisição.
      * 
-     * @param pedido Pedido a ser associado à requisição.
+     * @param item Item a ser adicionado ao pedido.
      */
-    public void associarPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
-    /**
-     * Retorna o pedido associado a requisicao
-     * 
-     * @return Pedido da requisição
-     */
-    public Pedido localizarPedido() {
-        return pedido;
+    public void adicionarItemAoPedido(Item item) {
+        this.pedido.adicionarItem(item);
     }
 
     /**
      * Finaliza a requisição, definindo a hora de saída e marcando como finalizada.
+     * @param horaSaida2 
      */
-    public void finalizar() {
+    public LocalDateTime finalizar(LocalDateTime horaSaida) {
         this.horaSaida = LocalDateTime.now();
         this.atendida = true;
         this.mesa.setDisponivel(true);
-        this.pedido.calcularValorPorPessoa();
+        return horaSaida;
+    }
+
+    /**
+     * Calcula o valor total do pedido.
+     * 
+     * @return Valor total do pedido.
+     */
+    public double calcularTotal() {
+        return this.pedido.calcularTotal();
+    }
+
+    /**
+     * Divide a conta entre os clientes.
+     * 
+     * @return Valor a ser pago por pessoa.
+     */
+    public double dividirConta() {
+        return this.pedido.calcularValorPorPessoa(this.quantPessoas);
     }
 
     @Override
@@ -118,4 +127,9 @@ public class Requisicao {
         }
     }
     //#endregion
+
+    public Pedido localizarPedido() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'localizarPedido'");
+    }
 }
