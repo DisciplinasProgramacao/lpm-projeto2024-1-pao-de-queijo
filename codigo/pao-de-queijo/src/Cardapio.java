@@ -1,5 +1,5 @@
 public class Cardapio {
-    private final Prato[] pratos = {
+    private final static Prato[] pratos = {
             new MoquecaDePalmito(),
             new FalafelAssado(),
             new SaladaPrimaveraComMacarraoKonjac(),
@@ -32,7 +32,7 @@ public class Cardapio {
     }
 
     
-    public String mostrarMenu(){
+    public static String mostrarMenu(){
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < pratos.length; i++) {
             sb.append((i+1)+": "+pratos[i]);
@@ -40,7 +40,7 @@ public class Cardapio {
         return sb.toString();
     }
 
-    public Prato fazerPedido(int opcao){
+    public static Prato fazerPedido(int opcao){
         int pos = opcao-1;
         return pratos[pos];
     }
