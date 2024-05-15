@@ -1,5 +1,5 @@
-class Agua extends Bebida {
+class Agua extends Item {
     public Agua() {
-        super(3);
+        super(3, "Água");
     }
 }

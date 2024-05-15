@@ -1,5 +1,5 @@
-class MoquecaDePalmito extends Prato {
+class MoquecaDePalmito extends Item {
     public MoquecaDePalmito() {
-        super(32);
+        super(32, "Moqueca de Palmito");
     }
 }

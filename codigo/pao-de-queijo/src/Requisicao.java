@@ -1,7 +1,5 @@
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Representa uma requisição de um cliente em um restaurante.
@@ -11,7 +9,7 @@ public class Requisicao {
     //#region atributos de classe
     private static int ultimoId = 0;
     ////#endregion
-    private static final double GORJETA = 0.1;
+
     //#region atributos
     private int id;
     private Date data;
@@ -20,11 +18,10 @@ public class Requisicao {
     private Cliente cliente;
     private boolean atendida;
     private Mesa mesa;
-    private Prato escolhido;
-    private Bebida escolha;
-    private double conta;
+    private Pedido pedido;
     //#endregion
 
+    //#region Contrutor
     /**
      * Construtor da classe Requisicao.
      * 
@@ -40,7 +37,9 @@ public class Requisicao {
         this.atendida = false;
         this.mesa = null;
     }
+    //#endregion
 
+    //#region Getters e Setters
     public int getId() {
         return id;
     }
@@ -66,12 +65,12 @@ public class Requisicao {
         return mesa;
     }
 
-    public Prato getEscolhido(){
-        return escolhido;
+    public Pedido getPedido() {
+        return pedido;
     }
-    public Bebida getEscolha(){
-        return escolha;
-    }
+    //#endregion
+
+    //#region Métodos
     /**
      * Associa uma mesa à requisição.
      * 
@@ -82,40 +81,40 @@ public class Requisicao {
         mesa.setDisponivel(false);
     }
 
-    @Override
-    public String toString() {
-        if (mesa == null) {
-            return "Requisição " + id + " em espera para " + quantPessoas + " clientes";
-        } else {
-            return "Requisição " + id + " na mesa " + mesa.getNumero() + " com " + quantPessoas + " clientes";
-        }
-    }
-    /*
+    /**
+     * Associa um pedido à requisição.
      * 
+     * @param pedido Pedido a ser associado à requisição.
      */
-    public void adicionarPrato(Prato escolhido, double conta) {
-        this.escolhido = escolhido;
-        this.conta+=escolhido.getValor();
+    public void associarPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
-    public void adicionarBebida(Bebida escolha, double conta){
-        this.escolha = escolha;
-        this.conta += escolha.getValor();
-    }
-    public double calcTotal(double conta){
-        this.conta+= conta * GORJETA;
-        return conta;
-        
+
+    /**
+     * Retorna o pedido associado a requisicao
+     * 
+     * @return Pedido da requisição
+     */
+    public Pedido localizarPedido() {
+        return pedido;
     }
 
     /**
      * Finaliza a requisição, definindo a hora de saída e marcando como finalizada.
-     * 
-     * @param localDateTime Hora em que o cliente saiu do restaurante.
      */
-    public void finalizar(LocalDateTime localDateTime) {
-        this.horaSaida = localDateTime;
+    public void finalizar() {
+        this.horaSaida = LocalDateTime.now();
         this.atendida = true;
         this.mesa.setDisponivel(true);
     }
 
+    @Override
+    public String toString() {
+        if (mesa == null) {
+            return "\nRequisição " + id + " em espera para " + quantPessoas + " pessoas | Cliente: " + cliente.getNome();
+        } else {
+            return "\nRequisição " + id + " na mesa " + mesa.getNumero() + " com " + quantPessoas + " pessoas | Cliente: " + cliente.getNome();
+        }
+    }
+    //#endregion
 }

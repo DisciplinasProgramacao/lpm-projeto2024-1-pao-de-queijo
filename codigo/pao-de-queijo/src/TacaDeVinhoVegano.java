@@ -1,5 +1,5 @@
-class TacaDeVinhoVegano extends Bebida {
+class TacaDeVinhoVegano extends Item {
     public TacaDeVinhoVegano() {
-        super(18);
+        super(18, "Taça de vinho vegano");
     }
 }
