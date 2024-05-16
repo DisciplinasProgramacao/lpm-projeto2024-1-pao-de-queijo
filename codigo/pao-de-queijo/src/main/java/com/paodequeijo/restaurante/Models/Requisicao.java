@@ -116,7 +116,7 @@ public class Requisicao {
         if (mesa == null) {
             return "\nRequisição " + id + " em espera para " + quantPessoas + " pessoas | Cliente: " + cliente.getNome();
         } else {
-            return "\nRequisição " + id + " na mesa " + mesa.getNumero() + " com " + quantPessoas + " pessoas | Cliente: " + cliente.getNome();
+            return "\nRequisição " + id + " na mesa " + mesa.getNumero() + " com " + quantPessoas + " pessoas | Cliente: " + cliente.getNome() + "O valor total a pagar é de R$ " + pedido.calcularTotal() + "o total por pessoa é de " + pedido.calcularValorPorPessoa(quantPessoas);
         }
     }
     //#endregion
