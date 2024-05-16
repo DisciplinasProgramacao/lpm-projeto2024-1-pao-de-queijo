@@ -1,3 +1,4 @@
+package main.java.com.paodequeijo.restaurante.Models;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;

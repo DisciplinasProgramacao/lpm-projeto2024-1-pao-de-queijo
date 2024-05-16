@@ -1,3 +1,4 @@
+package main.java.com.paodequeijo.restaurante.Models;
 public abstract class Cardapio {
     //#region Atributos de classe
     private String descricao;

@@ -1,3 +1,4 @@
+package main.java.com.paodequeijo.restaurante.Models;
 public class CardapioPratos extends Cardapio {
 
     //#region Construtor

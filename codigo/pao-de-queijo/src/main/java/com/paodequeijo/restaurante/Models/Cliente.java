@@ -1,3 +1,4 @@
+package main.java.com.paodequeijo.restaurante.Models;
 public class Cliente {
     //#region Atributos
     private String nome;
