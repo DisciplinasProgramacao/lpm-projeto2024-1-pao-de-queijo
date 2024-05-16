@@ -93,11 +93,11 @@ public class Requisicao {
      * Finaliza a requisição, definindo a hora de saída e marcando como finalizada.
      * @param horaSaida2 
      */
-    public LocalDateTime finalizar(LocalDateTime horaSaida) {
+    public void finalizar() {
         this.horaSaida = LocalDateTime.now();
         this.atendida = true;
         this.mesa.setDisponivel(true);
-        return horaSaida;
+        this.pedido.calcularTotal();    
     }
 
     /**
@@ -109,14 +109,6 @@ public class Requisicao {
         return this.pedido.calcularTotal();
     }
 
-    /**
-     * Divide a conta entre os clientes.
-     * 
-     * @return Valor a ser pago por pessoa.
-     */
-    public double dividirConta() {
-        return this.pedido.calcularValorPorPessoa(this.quantPessoas);
-    }
 
     @Override
     public String toString() {

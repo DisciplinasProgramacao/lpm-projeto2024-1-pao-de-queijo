@@ -9,6 +9,7 @@ public class Pedido {
     private static final double GORJETA = 1.1;
     private List<Item> itens;
     private double total;
+    public Mesa quantPessoas;
     //#endregion
 
     //#region Construtor
@@ -49,8 +50,8 @@ public class Pedido {
      * @param quantPessoas Quantidade de pessoas.
      * @return Valor por pessoa.
      */
-    public double calcularValorPorPessoa(int quantPessoas) {
-        return calcularTotal() / quantPessoas;
+    public double calcularValorPorPessoa(Requisicao quantPessoas) {
+        return calcularTotal() / quantPessoas.getQuantPessoas();
     }
 
     @Override

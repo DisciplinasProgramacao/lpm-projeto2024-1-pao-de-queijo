@@ -176,7 +176,7 @@ public class Restaurante {
         removerRequisicaoAtendida(requisicao);
         adicionarRequisicaoFinalizada(requisicao);
 
-        return "Requisição " + requisicao.getId() + " finalizada com sucesso, " + "mesa " + requisicao.getMesa().getNumero() + " liberada.";
+        return "Requisição " + requisicao.toString();
     }
 
     /**
