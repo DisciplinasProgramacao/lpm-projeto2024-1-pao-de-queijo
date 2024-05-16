@@ -1,3 +1,4 @@
+package main.java.com.paodequeijo.restaurante.Models;
 import java.util.Scanner;
 
 public class App {
