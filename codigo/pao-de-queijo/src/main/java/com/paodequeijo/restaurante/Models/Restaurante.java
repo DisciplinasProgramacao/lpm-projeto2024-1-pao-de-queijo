@@ -177,7 +177,7 @@ public class Restaurante {
         removerRequisicaoAtendida(requisicao);
         adicionarRequisicaoFinalizada(requisicao);
 
-        return "Requisição " + requisicao.toString();
+        return requisicao.toString();
     }
 
     /**
