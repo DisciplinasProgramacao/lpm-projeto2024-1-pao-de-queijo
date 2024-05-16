@@ -114,7 +114,6 @@ public class App {
 
         System.out.println("1 - Fazer pedido");
         System.out.println("2 - Ver pedido");
-        System.out.println("3- Finalizar Requisição");
         System.out.println("0 - Sair");
         System.out.print("\nDigite sua opção: ");
         opcao = Integer.parseInt(scanner.nextLine());
@@ -276,11 +275,6 @@ public class App {
                  } else {
                      System.out.println("Tecle Enter para voltar ao menu principal.");
                      scanner.nextLine();
-                 }
-                 case 3: 
-                 requisicao = buscarRequisicao();
-                 if (requisicao != null) {
-                 requisicao.finalizar();
                  }
                     }
                     break;
