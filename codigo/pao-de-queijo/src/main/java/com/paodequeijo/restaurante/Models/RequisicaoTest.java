@@ -1,4 +1,4 @@
-package main.java.com.paodequeijo.restaurante.Models;
+package com.paodequeijo.restaurante.Models;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
@@ -36,7 +36,7 @@ public class RequisicaoTest {
     @Test
     public void testFinalizar() {
         LocalDateTime horaSaida = LocalDateTime.now();
-        requisicao.finalizar(horaSaida);
+        requisicao.finalizar();
 
         assertTrue(requisicao.isAtendida());
         assertEquals(horaSaida, requisicao.getHoraSaida());

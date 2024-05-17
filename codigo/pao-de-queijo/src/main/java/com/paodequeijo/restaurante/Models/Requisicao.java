@@ -1,4 +1,4 @@
-package main.java.com.paodequeijo.restaurante.Models;
+package com.paodequeijo.restaurante.Models;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -113,7 +113,7 @@ public class Requisicao {
 
     @Override
     public String toString() {
-        if (mesa == null) {
+        if (mesa == null || pedido == null) {
             return "\nRequisição " + id + " em espera para " + quantPessoas + " pessoas | Cliente: " + cliente.getNome();
         } else {
             return "\nRequisição " + id + " na mesa " + mesa.getNumero() + " com " + quantPessoas + " pessoas | Cliente: " + cliente.getNome() + "O valor total a pagar é de R$ " + pedido.calcularTotal() + "o total por pessoa é de " + pedido.calcularValorPorPessoa(quantPessoas);
