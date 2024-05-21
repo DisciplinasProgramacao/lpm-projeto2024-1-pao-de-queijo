@@ -1,31 +1,35 @@
-package main.java.com.paodequeijo.restaurante.Models;
-public abstract class Cardapio {
-    //#region Atributos de classe
-    private static String descricao;
-    private static Item[] itens;
+package com.paodequeijo.restaurante.Models;
+import com.paodequeijo.restaurante.Models.itens.*;
+
+public class Cardapio {
+    //#region Atributos
+    private Item[] itens;
     //#endregion
 
     //#region Contrutor
-    protected Cardapio(String descricao, Item[] itens) {
-        init(descricao, itens);
-    }
-    //#endregion
-
-    //#region Inicializador
-    private void init(String descricao, Item[] itens) {
-        this.descricao = descricao;
-        this.itens = itens;
+    public Cardapio() {
+        this.itens = inicializarItens();
     }
     //#endregion
 
     //#region Métodos de negócio
- 
+    private Item[] inicializarItens() {
+        return new Item[] {
+            new Agua(),
+            new CopoDeSuco(),
+            new RefrigeranteOrganico(),
+            new CervejaVegana(),
+            new TacaDeVinhoVegano(),
+            new MoquecaDePalmito(),
+            new FalafelAssado(),
+            new SaladaPrimaveraComMacarraoKonjac(),
+            new EscondidinhoDeInhame(),
+            new StrogonoffDeCogumelos()
+        };
+    }
     
-    public static String mostrarMenu(){
+    public String mostrarMenu(){
         StringBuilder sb = new StringBuilder();
-
-        sb.append("////// " + descricao + " //////");
-        sb.append("\n");
         for (int i = 0; i < itens.length; i++) {
             sb.append((i+1) + ": " + itens[i].descricao);
             sb.append("\n");

@@ -1,4 +1,4 @@
-package main.java.com.paodequeijo.restaurante.Models;
+package com.paodequeijo.restaurante.Models;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class Pedido {
         for (Item item : itens) {
             sb.append(item.descricao).append(" = R$").append(item.valor).append("\n");
         }
-        sb.append("Total (com gorjeta): R$").append(calcularTotal()).append("\n");
+        sb.append("Total (com gorjeta): R$").append(String.format("%.2f", calcularTotal())).append("\n");
         return sb.toString();
     }
     //#endregion
