@@ -1,6 +1,9 @@
 package main.java.com.paodequeijo.restaurante.Models;
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
+
+import main.java.com.paodequeijo.restaurante.Models.Cardapio;
+import main.java.com.paodequeijo.restaurante.Models.Requisicao; 
 
 /**
  * Representa o Restaurante
@@ -164,20 +167,20 @@ public class Restaurante {
     /**
       * Exibe o cardápio
       */
-    public void exibirCardapio() {
-        List<Item> itens = cardapio.getItens();
-        System.out.println("Cardápio do Restaurante:");
-        for (Item item : itens) {
-            System.out.println(item);
-        }
+    public String exibirCardapio() {
+        return cardapio.mostrarMenu();
     }
     /**
       * Adiciona um item ao pedido de uma requisição
       * @param requisicao Idica qual Requisição 
         @param item Idica qual o item 
       */
-    public void adicionarItemAoPedido(Requisicao requisicao, Item item) {
-        requisicao.adicionarItemAoPedido(item);
+    public void adicionarItemAoPedido(int mesa, int idItem) {
+        Item item = cardapio.itemEscolhido(idItem);
+        Requisicao req = localizarAtendida(mesa);
+        if(req != null){
+            req.adicionarItemAoPedido(item);
+        }
     }
 
     /**
