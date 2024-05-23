@@ -1,6 +1,9 @@
-package com.paodequeijo.restaurante.Models;
+package main.java.com.paodequeijo.restaurante.Models;
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
+
+import main.java.com.paodequeijo.restaurante.Models.Cardapio;
+import main.java.com.paodequeijo.restaurante.Models.Requisicao; 
 
 /**
  * Representa o Restaurante
@@ -15,6 +18,7 @@ public class Restaurante {
     private static List<Requisicao> requisicoesAtendidas;
     private static List<Requisicao> requisicoesFinalizadas;
     private static List<Requisicao> todasRequisicoes;
+    private Cardapio cardapio;
     //#endregion
 
     //#region Construtor
@@ -28,6 +32,7 @@ public class Restaurante {
         this.nome = nome;
         this.clientes = new ArrayList<>();
         this.mesas = new ArrayList<>();
+        this.cardapio = new Cardapio();
         criarMesas();
 
         Restaurante.requisicoesPendentes = new ArrayList<>();
@@ -133,14 +138,14 @@ public class Restaurante {
       */
     public Requisicao criarRequisicao(Cliente cliente, int quantPessoas) {
         Requisicao requisicao = new Requisicao(quantPessoas, cliente);
-        adicionarATodas(requisicao);
+        todasRequisicoes.add(requisicao);
 
         Mesa mesaDisponivel = procurarMesa(quantPessoas);
         if (mesaDisponivel != null) {
             requisicao.associarMesa(mesaDisponivel);
-            adicionarRequisicaoAtendida(requisicao);
+            requisicoesAtendidas.add(requisicao);
         } else {
-            adicionarRequisicaoPendente(requisicao);
+            requisicoesPendentes.add(requisicao);
         }
         
         return requisicao;
@@ -159,13 +164,24 @@ public class Restaurante {
 
         return null;
     }
-
-    private void atribuirMesa(int quantidadePessoas, Cliente cliente, Mesa mesa) {
-        mesa.setDisponivel(false);
-        Requisicao requisicao = new Requisicao(quantidadePessoas, cliente);
-        adicionarRequisicaoAtendida(requisicao);
+    /**
+      * Exibe o cardápio
+      */
+    public String exibirCardapio() {
+        return cardapio.mostrarMenu();
     }
-
+    /**
+      * Adiciona um item ao pedido de uma requisição
+      * @param requisicao Idica qual Requisição 
+        @param item Idica qual o item 
+      */
+    public void adicionarItemAoPedido(int mesa, int idItem) {
+        Item item = cardapio.itemEscolhido(idItem);
+        Requisicao req = localizarAtendida(mesa);
+        if(req != null){
+            req.adicionarItemAoPedido(item);
+        }
+    }
 
     /**
       * Finaliza uma Requisição
@@ -174,8 +190,8 @@ public class Restaurante {
     public String finalizarRequisicao(int mesa) {
         Requisicao requisicao = localizarAtendida(mesa);
         requisicao.finalizar();
-        removerRequisicaoAtendida(requisicao);
-        adicionarRequisicaoFinalizada(requisicao);
+        requisicoesAtendidas.remove(requisicao);
+        requisicoesFinalizadas.add(requisicao);
 
         return requisicao.toString();
     }
@@ -191,65 +207,6 @@ public class Restaurante {
                 return req;
             }
         }
-
         return null;
     }
-
-    //#region Métodos das listas de requisicoes
-    /**
-     * Adiciona uma requisição à lista de requisições pendentes
-     * @param requisicao
-     */
-    private void adicionarRequisicaoPendente(Requisicao requisicao) {
-        requisicoesPendentes.add(requisicao);
-    }
-
-    /**
-     * Remove uma requisição à lista de requisições pendentes
-     * @param requisicao
-     */
-    private void removerRequisicaoPendente(Requisicao requisicao) {
-        requisicoesPendentes.remove(requisicao);
-    }
-
-    /**
-     * Adiciona uma requisição à lista de requisições atendidas
-     * @param requisicao
-     */
-    private void adicionarRequisicaoAtendida(Requisicao requisicao) {
-        requisicoesAtendidas.add(requisicao);
-    }
-
-    /**
-     * Remove uma requisição à lista de requisições atendidas
-     * @param requisicao
-     */
-    private void removerRequisicaoAtendida(Requisicao requisicao) {
-        requisicoesAtendidas.remove(requisicao);
-    }
-
-    /**
-     * Adiciona uma requisição à lista de requisições finalizadas
-     * @param requisicao
-     */
-    public void adicionarRequisicaoFinalizada(Requisicao requisicao) {
-        requisicoesFinalizadas.add(requisicao);
-    }
-
-    /**
-     * Remove uma requisição à lista de requisições finalizadas
-     * @param requisicao
-     */
-    public void removerRequisicaoFinalizada(Requisicao requisicao) {
-        requisicoesFinalizadas.remove(requisicao);
-    }
-
-    /**
-     * Adiciona uma requisição à lista de requisições finalizadas
-     * @param requisicao
-     */
-    public void adicionarATodas(Requisicao requisicao) {
-        todasRequisicoes.add(requisicao);
-    }
-    //#endregion
 }
