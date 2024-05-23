@@ -6,8 +6,6 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class RequisicaoTest {
 

@@ -1,4 +1,4 @@
-package main.java.com.paodequeijo.restaurante.Models;
+package com.paodequeijo.restaurante.Models;
 import java.util.Scanner;
 
 public class App {
@@ -142,33 +142,31 @@ public class App {
         return requisicao;
     }
 
-    static Item menuCardapio() {
+    static void cabecalhoCardapio() {
+        limpar();
+        System.out.println("========================================");
+        System.out.println("  Cardápio - Restaurante Pão de Queijo!");
+        System.out.println("========================================");
+    }
+
+    static Item MenuCardapio() {
         int opcao;
         Item item;
         cabecalho();
 
-        System.out.println("1 - Cardápio de Pratos");
-        System.out.println("2 - Cardápio de Bebidas");
+        System.out.println("1 - Cardápio");
         System.out.println("0 - Sair");
         System.out.print("Digite sua opção: ");
         opcao = Integer.parseInt(scanner.nextLine());
 
-        limpar();
         switch (opcao) {
             case 1:
-                CardapioPratos cardapioPratos = new CardapioPratos();
-                System.out.println(cardapioPratos.mostrarMenu());
-                System.out.println("Qual o número do prato que gostaria?");
+                cabecalhoCardapio();
+                Cardapio cardapio = new Cardapio();
+                System.out.println(cardapio.mostrarMenu());
+                System.out.println("Qual o número do item que gostaria de pedir?");
                 int escolhaPrato = Integer.parseInt(scanner.nextLine());
-                item = cardapioPratos.itemEscolhido(escolhaPrato);
-                break;
-
-            case 2: 
-                CardapioBebidas cardapioBebidas = new CardapioBebidas();
-                System.out.println(cardapioBebidas.mostrarMenu());
-                System.out.println("Qual o número da bebida que gostaria?");
-                int escolhaBebida = Integer.parseInt(scanner.nextLine());
-                item = cardapioBebidas.itemEscolhido(escolhaBebida);
+                item = cardapio.itemEscolhido(escolhaPrato);
                 break;
         
             default:
@@ -251,7 +249,7 @@ public class App {
                         case 1:
                             requisicao = buscarRequisicao();
                             if (requisicao != null) {
-                                Item itemEscolhido = menuCardapio();
+                                Item itemEscolhido = MenuCardapio();
                                 pedido = requisicao.getPedido();
                                 if (pedido == null) {
                                     pedido = new Pedido();

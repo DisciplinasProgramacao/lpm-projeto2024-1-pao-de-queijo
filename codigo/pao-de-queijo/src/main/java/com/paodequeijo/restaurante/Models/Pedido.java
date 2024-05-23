@@ -62,7 +62,7 @@ public class Pedido {
         for (Item item : itens) {
             sb.append(item.descricao).append(" = R$").append(item.valor).append("\n");
         }
-        sb.append("Total (com gorjeta): R$").append(calcularTotal()).append("\n");
+        sb.append("Total (com gorjeta): R$").append(String.format("%.2f", calcularTotal())).append("\n");
         return sb.toString();
     }
     //#endregion
