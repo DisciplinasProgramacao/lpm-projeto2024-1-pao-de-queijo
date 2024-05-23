@@ -1,9 +1,6 @@
-package main.java.com.paodequeijo.restaurante.Models;
+package com.paodequeijo.restaurante.Models;
 import java.util.ArrayList;
 import java.util.List;
-
-import main.java.com.paodequeijo.restaurante.Models.Cardapio;
-import main.java.com.paodequeijo.restaurante.Models.Requisicao; 
 
 /**
  * Representa o Restaurante
@@ -175,12 +172,16 @@ public class Restaurante {
       * @param requisicao Idica qual Requisição 
         @param item Idica qual o item 
       */
-    public void adicionarItemAoPedido(int mesa, int idItem) {
+    public String adicionarItemAoPedido(int mesa, int idItem) {
         Item item = cardapio.itemEscolhido(idItem);
         Requisicao req = localizarAtendida(mesa);
         if(req != null){
             req.adicionarItemAoPedido(item);
+            
+            return "\n" + item.toString() + " | adicionado(a) com sucesso.";
         }
+
+        return "Requisição não encontrada";
     }
 
     /**

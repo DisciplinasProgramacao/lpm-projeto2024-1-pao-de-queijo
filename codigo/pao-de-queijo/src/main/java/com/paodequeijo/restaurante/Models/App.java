@@ -149,9 +149,9 @@ public class App {
         System.out.println("========================================");
     }
 
-    static Item MenuCardapio() {
+    static int MenuCardapio() {
         int opcao;
-        Item item;
+        int idItem;
         cabecalho();
 
         System.out.println("1 - Cardápio");
@@ -162,19 +162,17 @@ public class App {
         switch (opcao) {
             case 1:
                 cabecalhoCardapio();
-                Cardapio cardapio = new Cardapio();
-                System.out.println(cardapio.mostrarMenu());
+                System.out.println(restaurante.exibirCardapio());
                 System.out.println("Qual o número do item que gostaria de pedir?");
-                int escolhaPrato = Integer.parseInt(scanner.nextLine());
-                item = cardapio.itemEscolhido(escolhaPrato);
+                idItem = Integer.parseInt(scanner.nextLine());
                 break;
         
             default:
-                item = null;
+                idItem = 0;
                 break;
         }
 
-        return item;
+        return idItem;
     }
 
     static void cabecalhoMesas() {
@@ -247,41 +245,39 @@ public class App {
                     opcao = MenuPedidos();
                     switch (opcao) {
                         case 1:
-                            requisicao = buscarRequisicao();
-                            if (requisicao != null) {
-                                Item itemEscolhido = MenuCardapio();
-                                pedido = requisicao.getPedido();
-                                if (pedido == null) {
-                                    pedido = new Pedido();
-                                }
-                                
-                                System.out.println(pedido.adicionarItem(itemEscolhido));
-                                pausa();
-                            } else {
-                                System.out.println("Tecle Enter para voltar ao menu principal.");
-                                scanner.nextLine();
-                            }
+                            System.out.println("\nQual o numero da mesa?");
+                            System.out.println("(Se ainda não tiver mesa envie 0 para voltar) ");
+                            int mesa = Integer.parseInt(scanner.nextLine());
+                            int idItem = MenuCardapio();
+                            System.out.println(restaurante.adicionarItemAoPedido(mesa, idItem));
+                            pausa();
 
                             break;
 
                         case 2:
                             requisicao = buscarRequisicao();
-                 if (requisicao != null) {
-                    pedido = requisicao.getPedido();
-                    System.out.println(pedido);
-                     pausa();
-                 } else {
-                     System.out.println("Tecle Enter para voltar ao menu principal.");
-                     scanner.nextLine();
-                 }
-                    }
-                    break;
+                            if (requisicao != null) {
+                                pedido = requisicao.getPedido();
+                                System.out.println(pedido);
+                                pausa();
+                            } else {
+                                System.out.println("Tecle Enter para voltar ao menu principal.");
+                                scanner.nextLine();
+                            }
+                        default:
+                            break;
+                        }
+                        break;
 
                 case 3: 
                     cabecalhoMesas();
                     System.out.println(restaurante.imprimirMesas());
                     pausa();
                 break;
+
+                default: 
+                    break;
+
             }
             
         } while (opcao != 0);
