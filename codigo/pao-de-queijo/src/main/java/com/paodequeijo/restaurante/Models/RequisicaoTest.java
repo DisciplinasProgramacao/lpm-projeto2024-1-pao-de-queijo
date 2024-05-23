@@ -1,13 +1,9 @@
-package main.java.com.paodequeijo.restaurante.Models;
-import static org.junit.jupiter.api.Assertions.*;
-
+package com.paodequeijo.restaurante.Models;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class RequisicaoTest {
 
