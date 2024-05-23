@@ -121,8 +121,5 @@ public class Requisicao {
     }
     //#endregion
 
-    public Pedido localizarPedido() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'localizarPedido'");
-    }
+
 }
