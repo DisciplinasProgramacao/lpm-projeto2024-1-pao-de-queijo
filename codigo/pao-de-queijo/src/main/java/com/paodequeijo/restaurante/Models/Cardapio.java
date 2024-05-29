@@ -23,7 +23,13 @@ public class Cardapio {
             new FalafelAssado(),
             new SaladaPrimaveraComMacarraoKonjac(),
             new EscondidinhoDeInhame(),
-            new StrogonoffDeCogumelos()
+            new StrogonoffDeCogumelos(),
+            new MenuFechado1(),
+            new MenuFechado2(),
+            new MenuFechado3(),
+            new MenuFechado4(),
+            new MenuFechado5(),
+            new MenuFechado6(),
         };
     }
     

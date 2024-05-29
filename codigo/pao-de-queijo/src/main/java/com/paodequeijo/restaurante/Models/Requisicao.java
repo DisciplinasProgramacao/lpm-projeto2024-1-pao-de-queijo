@@ -1,6 +1,5 @@
 package com.paodequeijo.restaurante.Models;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Representa uma requisição de um cliente em um restaurante.
@@ -13,7 +12,6 @@ public class Requisicao {
 
     //#region atributos
     private int id;
-    private Date data;
     private int quantPessoas;
     private LocalDateTime horaSaida;
     private Cliente cliente;
@@ -31,7 +29,6 @@ public class Requisicao {
      */
     public Requisicao(int quantPessoas, Cliente cliente) {
         this.id = ++ultimoId;
-        this.data = new Date();
         this.quantPessoas = quantPessoas;
         this.cliente = cliente;
         this.atendida = false;
