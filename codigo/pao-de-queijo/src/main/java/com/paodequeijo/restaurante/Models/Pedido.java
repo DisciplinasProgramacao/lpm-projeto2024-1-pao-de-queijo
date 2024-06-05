@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Pedido {
     //#region Atributos
-    private static final double GORJETA = 1.1;
+    protected static final double GORJETA = 1.1;
     private List<Item> itens;
     private double total;
     public Mesa quantPessoas;

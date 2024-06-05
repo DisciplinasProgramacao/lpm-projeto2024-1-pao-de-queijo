@@ -1,4 +1,5 @@
 package com.paodequeijo.restaurante.Models;
+
 import java.util.Scanner;
 
 public class App {
@@ -53,12 +54,12 @@ public class App {
     static Requisicao abrirRequisicao() {
         System.out.print("Qual o seu documento (somente números)? ");
         long documento = Long.parseLong(scanner.nextLine());
-        
+
         Cliente cliente = buscarCliente(documento);
         if (cliente == null) {
             cliente = cadastrarNovoCliente(documento);
         }
-        
+
         Requisicao requisicao = criarRequisicao(cliente);
         return requisicao;
     }
@@ -155,6 +156,7 @@ public class App {
         cabecalho();
 
         System.out.println("1 - Cardápio");
+        System.out.println("2- CardapioFechado");
         System.out.println("0 - Sair");
         System.out.print("Digite sua opção: ");
         opcao = Integer.parseInt(scanner.nextLine());
@@ -168,7 +170,14 @@ public class App {
                 int escolhaPrato = Integer.parseInt(scanner.nextLine());
                 item = cardapio.itemEscolhido(escolhaPrato);
                 break;
-        
+            case 2:
+                cabecalhoCardapio();
+                CardapioFechado cardapioFechado = new CardapioFechado();
+                System.out.println(cardapioFechado.mostrarMenu());
+                System.out.println("Qual o número do item que gostaria de pedir?");
+                int escolherPrato = Integer.parseInt(scanner.nextLine());
+                item = cardapioFechado.itemEscolhido(escolherPrato);
+                break;
             default:
                 item = null;
                 break;
@@ -189,10 +198,10 @@ public class App {
         Requisicao requisicao;
         Pedido pedido;
         int opcao;
-        
+
         do {
             opcao = MenuPrincipal();
-            switch(opcao) {
+            switch (opcao) {
                 case 1:
                     opcao = MenuRequisicoes();
                     switch (opcao) {
@@ -203,7 +212,7 @@ public class App {
                             pausa();
                             break;
 
-                        case 2: 
+                        case 2:
                             opcao = MenuVerRequisicoes();
                             switch (opcao) {
                                 case 1:
@@ -216,7 +225,7 @@ public class App {
                                     pausa();
                                     break;
 
-                                case 3: 
+                                case 3:
                                     System.out.println(restaurante.getRequisicoesFinalizadas());
                                     pausa();
                                     break;
@@ -225,7 +234,7 @@ public class App {
                                     System.out.println(restaurante.getTodasRequisicoes());
                                     pausa();
                                     break;
-                            
+
                                 default:
                                     break;
                             }
@@ -237,12 +246,12 @@ public class App {
                             System.out.println(restaurante.finalizarRequisicao(mesa));
                             pausa();
                             break;
-                    
-                        default: 
+
+                        default:
                             break;
-                    } 
+                    }
                     break;
-                    
+
                 case 2:
                     opcao = MenuPedidos();
                     switch (opcao) {
@@ -254,7 +263,7 @@ public class App {
                                 if (pedido == null) {
                                     pedido = new Pedido();
                                 }
-                                
+
                                 System.out.println(pedido.adicionarItem(itemEscolhido));
                                 pausa();
                             } else {
@@ -266,24 +275,24 @@ public class App {
 
                         case 2:
                             requisicao = buscarRequisicao();
-                 if (requisicao != null) {
-                    pedido = requisicao.getPedido();
-                    System.out.println(pedido);
-                     pausa();
-                 } else {
-                     System.out.println("Tecle Enter para voltar ao menu principal.");
-                     scanner.nextLine();
-                 }
+                            if (requisicao != null) {
+                                pedido = requisicao.getPedido();
+                                System.out.println(pedido);
+                                pausa();
+                            } else {
+                                System.out.println("Tecle Enter para voltar ao menu principal.");
+                                scanner.nextLine();
+                            }
                     }
                     break;
 
-                case 3: 
+                case 3:
                     cabecalhoMesas();
                     System.out.println(restaurante.imprimirMesas());
                     pausa();
-                break;
+                    break;
             }
-            
+
         } while (opcao != 0);
         System.out.println("\nAgradeçemos a preferência, volte sempre <3\n");
         scanner.close();
