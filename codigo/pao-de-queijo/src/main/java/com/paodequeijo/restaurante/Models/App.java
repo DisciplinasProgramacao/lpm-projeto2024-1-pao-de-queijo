@@ -1,4 +1,5 @@
 package com.paodequeijo.restaurante.Models;
+
 import java.util.Scanner;
 
 public class App {
@@ -74,7 +75,7 @@ public class App {
         if (cliente == null) {
             cliente = cadastrarNovoCliente(documento);
         }
-        
+
         Requisicao requisicao = criarRequisicao(cliente);
         return requisicao;
     }
@@ -197,10 +198,11 @@ public class App {
 
     static int MenuCardapio() {
         int opcao;
-        int idItem;
+        int idItem = -1;
         cabecalho();
 
         System.out.println("1 - Cardápio");
+        System.out.println("2 - Cardapio Fechado");
         System.out.println("0 - Sair");
         System.out.print("Digite sua opção: ");
 
@@ -213,7 +215,8 @@ public class App {
         switch (opcao) {
             case 1:
                 cabecalhoCardapio();
-                System.out.println(restaurante.exibirCardapio());
+                Cardapio cardapio = new Cardapio();
+                System.out.println(cardapio.mostrarMenu());
                 System.out.println("Qual o número do item que gostaria de pedir?");
 
                 try {
@@ -223,9 +226,12 @@ public class App {
                 }
 
                 break;
-        
+            case 2:
+                
+                
+                break;
             default:
-                idItem = 0;
+                idItem = -1;
                 break;
         }
 
@@ -244,10 +250,10 @@ public class App {
         Requisicao requisicao;
         Pedido pedido;
         int opcao;
-        
+
         do {
             opcao = MenuPrincipal();
-            switch(opcao) {
+            switch (opcao) {
                 case 1:
                     opcao = MenuRequisicoes();
                     switch (opcao) {
@@ -265,7 +271,7 @@ public class App {
                             pausa();
                             break;
 
-                        case 2: 
+                        case 2:
                             opcao = MenuVerRequisicoes();
                             switch (opcao) {
                                 case 1:
@@ -278,7 +284,7 @@ public class App {
                                     pausa();
                                     break;
 
-                                case 3: 
+                                case 3:
                                     System.out.println(restaurante.getRequisicoesFinalizadas());
                                     pausa();
                                     break;
@@ -287,7 +293,7 @@ public class App {
                                     System.out.println(restaurante.getTodasRequisicoes());
                                     pausa();
                                     break;
-                            
+
                                 default:
                                     break;
                             }
@@ -306,12 +312,12 @@ public class App {
                             }
 
                             break;
-                    
-                        default: 
+
+                        default:
                             break;
-                    } 
+                    }
                     break;
-                    
+
                 case 2:
                     opcao = MenuPedidos();
                     switch (opcao) {
@@ -341,22 +347,16 @@ public class App {
                                 System.out.println("Tecle Enter para voltar ao menu principal.");
                                 scanner.nextLine();
                             }
-                        default:
-                            break;
-                        }
-                        break;
+                    }
+                    break;
 
-                case 3: 
+                case 3:
                     cabecalhoMesas();
                     System.out.println(restaurante.imprimirMesas());
                     pausa();
-                break;
-
-                default: 
                     break;
-
             }
-            
+
         } while (opcao != 0);
         System.out.println("\nAgradeçemos a preferência, volte sempre <3\n");
         scanner.close();

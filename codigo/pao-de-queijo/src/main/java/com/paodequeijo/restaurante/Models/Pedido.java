@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Pedido {
     //#region Atributos
-    private static final double GORJETA = 1.1;
+    protected static final double GORJETA = 1.1;
     private List<Item> itens;
     private double total;
     public Mesa quantPessoas;
@@ -51,8 +51,8 @@ public class Pedido {
      * @param quantPessoas Quantidade de pessoas.
      * @return Valor por pessoa.
      */
-    public double calcularValorPorPessoa(Requisicao quantPessoas) {
-        return calcularTotal() / quantPessoas.getQuantPessoas();
+    public double calcularValorPorPessoa(int quantPessoas) {
+        return calcularTotal() / quantPessoas;
     }
 
     @Override
