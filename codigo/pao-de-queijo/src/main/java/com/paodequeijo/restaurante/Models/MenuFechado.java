@@ -8,8 +8,8 @@ public class MenuFechado extends Pedido {
     private static final double VALOR_MENU_FECHADO = 32.00;
 
     // Opções de pratos e bebidas permitidos no menu fechado
-    private static final List<String> PRATOS = List.of("Falafel assado", "Caçarola de legumes");
-    private static final List<String> BEBIDAS = List.of("Copo de suco", "Cerveja vegana", "Refrigerante orgânico");
+    static final List<String> PRATOS = List.of("Falafel assado", "Caçarola de legumes");
+    static final List<String> BEBIDAS = List.of("Copo de suco", "Cerveja vegana", "Refrigerante orgânico");
 
     private boolean pratoEscolhido;
     private boolean bebidaEscolhida;
@@ -30,15 +30,13 @@ public class MenuFechado extends Pedido {
             return "Item inválido ou já escolhido.";
         }
         super.adicionarItem(item);
+        //trocar por excessão
         return String.format("%s adicionado(a) com sucesso ao pedido do Menu Fechado.", item.descricao);
     }
 
     @Override
     public double calcularTotal() {
-        if (pratoEscolhido && bebidaEscolhida) {
+       
             return VALOR_MENU_FECHADO * GORJETA;
-        } else {
-            return 0.0; // ou algum valor que indique que o pedido não está completo
-        }
     }
 }
