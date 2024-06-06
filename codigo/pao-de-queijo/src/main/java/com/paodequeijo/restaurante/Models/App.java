@@ -156,7 +156,7 @@ public class App {
         cabecalho();
 
         System.out.println("1 - Cardápio");
-        System.out.println("2- Cardapio Fechado");
+        System.out.println("2 - Cardapio Fechado");
         System.out.println("0 - Sair");
         System.out.print("Digite sua opção: ");
         opcao = Integer.parseInt(scanner.nextLine());
