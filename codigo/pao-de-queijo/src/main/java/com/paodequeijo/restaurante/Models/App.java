@@ -156,7 +156,7 @@ public class App {
         cabecalho();
 
         System.out.println("1 - Cardápio");
-        System.out.println("2- CardapioFechado");
+        System.out.println("2- Cardapio Fechado");
         System.out.println("0 - Sair");
         System.out.print("Digite sua opção: ");
         opcao = Integer.parseInt(scanner.nextLine());
@@ -177,6 +177,15 @@ public class App {
                 System.out.println("Qual o número do item que gostaria de pedir?");
                 int escolherPrato = Integer.parseInt(scanner.nextLine());
                 item = cardapioFechado.itemEscolhido(escolherPrato);
+                System.out.println(cardapioFechado.mostrarMenu());
+                System.out.println("Qual o número do item que gostaria de pedir?");
+                int escolherBebida2 = Integer.parseInt(scanner.nextLine());
+                item = cardapioFechado.itemEscolhido(escolherBebida2);
+                System.out.println(cardapioFechado.mostrarMenu());
+                System.out.println("Qual o número do item que gostaria de pedir?");
+                int escolherBebida = Integer.parseInt(scanner.nextLine());
+                item = cardapioFechado.itemEscolhido(escolherBebida);
+                
                 break;
             default:
                 item = null;
