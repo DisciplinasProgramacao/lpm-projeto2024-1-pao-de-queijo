@@ -31,7 +31,12 @@ public class App {
         System.out.println("3 - Mesas");
         System.out.println("0 - Sair");
         System.out.print("\nDigite sua opção: ");
-        opcao = Integer.parseInt(scanner.nextLine());
+
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            opcao = -1;
+        }
 
         return opcao;
     }
@@ -45,14 +50,25 @@ public class App {
         System.out.println("3 - Finalizar Requisicao");
         System.out.println("0 - Sair");
         System.out.print("\nDigite sua opção: ");
-        opcao = Integer.parseInt(scanner.nextLine());
+
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            opcao = -1;
+        }
 
         return opcao;
     }
 
     static Requisicao abrirRequisicao() {
+        long documento;
         System.out.print("Qual o seu documento (somente números)? ");
-        long documento = Long.parseLong(scanner.nextLine());
+
+        try {
+            documento = Long.parseLong(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            return null;
+        }
         
         Cliente cliente = buscarCliente(documento);
         if (cliente == null) {
@@ -85,9 +101,17 @@ public class App {
 
     static Requisicao criarRequisicao(Cliente cliente) {
         Requisicao requisicao;
+        int quantPessoas = 0;
 
         System.out.print("Bem-vindo(a), " + cliente.getNome() + "! Mesa para quantas pessoas? ");
-        int quantPessoas = Integer.parseInt(scanner.nextLine());
+
+        try {
+            quantPessoas = Integer.parseInt(scanner.nextLine());
+            requisicao = restaurante.criarRequisicao(cliente, quantPessoas);
+        } catch (NumberFormatException e) {
+            requisicao = null;
+        }
+
         requisicao = restaurante.criarRequisicao(cliente, quantPessoas);
 
         return requisicao;
@@ -103,7 +127,12 @@ public class App {
         System.out.println("4 - Todas");
         System.out.println("0 - Sair");
         System.out.print("\nDigite sua opção: ");
-        opcao = Integer.parseInt(scanner.nextLine());
+
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            opcao = -1;
+        }
 
         return opcao;
     }
@@ -116,7 +145,12 @@ public class App {
         System.out.println("2 - Ver pedido");
         System.out.println("0 - Sair");
         System.out.print("\nDigite sua opção: ");
-        opcao = Integer.parseInt(scanner.nextLine());
+
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            opcao = -1;
+        }
 
         return opcao;
     }
@@ -128,15 +162,27 @@ public class App {
         System.out.println("1 - Ver Cardapio");
         System.out.println("0 - Sair");
         System.out.print("\nDigite sua opção: ");
-        opcao = Integer.parseInt(scanner.nextLine());
+
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            opcao = -1;
+        }
 
         return opcao;
     }
 
     static Requisicao buscarRequisicao() {
+        int mesa = 0;
         System.out.println("\nQual o numero da mesa?");
         System.out.println("(Se ainda não tiver mesa envie 0 para voltar) ");
-        int mesa = Integer.parseInt(scanner.nextLine());
+
+        try {
+            mesa = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            mesa = 0;
+        }
+        
         Requisicao requisicao = restaurante.localizarAtendida(mesa);
 
         return requisicao;
@@ -157,14 +203,25 @@ public class App {
         System.out.println("1 - Cardápio");
         System.out.println("0 - Sair");
         System.out.print("Digite sua opção: ");
-        opcao = Integer.parseInt(scanner.nextLine());
+
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            opcao = -1;
+        }
 
         switch (opcao) {
             case 1:
                 cabecalhoCardapio();
                 System.out.println(restaurante.exibirCardapio());
                 System.out.println("Qual o número do item que gostaria de pedir?");
-                idItem = Integer.parseInt(scanner.nextLine());
+
+                try {
+                    idItem = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    idItem = 0;
+                }
+
                 break;
         
             default:
@@ -196,6 +253,13 @@ public class App {
                     switch (opcao) {
                         case 1:
                             requisicao = abrirRequisicao();
+
+                            if (requisicao == null) {
+                                System.out.println("Documento inválido.");
+                                pausa();
+                                break;
+                            }
+
                             pedido = new Pedido();
                             System.out.println(requisicao);
                             pausa();
@@ -231,9 +295,16 @@ public class App {
 
                         case 3:
                             System.out.print("Qual o número da mesa? ");
-                            int mesa = Integer.parseInt(scanner.nextLine());
-                            System.out.println(restaurante.finalizarRequisicao(mesa));
-                            pausa();
+
+                            try {
+                                int mesa = Integer.parseInt(scanner.nextLine());
+                                System.out.println(restaurante.finalizarRequisicao(mesa));
+                                pausa();
+                            } catch (NumberFormatException e) {
+                                System.out.println("Número de mesa inválido.");
+                                pausa();
+                            }
+
                             break;
                     
                         default: 
@@ -247,10 +318,16 @@ public class App {
                         case 1:
                             System.out.println("\nQual o numero da mesa?");
                             System.out.println("(Se ainda não tiver mesa envie 0 para voltar) ");
-                            int mesa = Integer.parseInt(scanner.nextLine());
-                            int idItem = MenuCardapio();
-                            System.out.println(restaurante.adicionarItemAoPedido(mesa, idItem));
-                            pausa();
+
+                            try {
+                                int mesa = Integer.parseInt(scanner.nextLine());
+                                int idItem = MenuCardapio();
+                                System.out.println(restaurante.adicionarItemAoPedido(mesa, idItem));
+                                pausa();
+                            } catch (NumberFormatException e) {
+                                System.out.println("Número de mesa inválido.");
+                                pausa();
+                            }
 
                             break;
 
