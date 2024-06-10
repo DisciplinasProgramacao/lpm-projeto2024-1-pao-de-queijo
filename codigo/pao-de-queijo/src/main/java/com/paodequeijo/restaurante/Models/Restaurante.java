@@ -1,6 +1,8 @@
 package com.paodequeijo.restaurante.Models;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Representa o Restaurante
@@ -96,16 +98,11 @@ public class Restaurante {
      * @return String com a lista das mesas
      */
     public String imprimirMesas() {
-        StringBuilder sb = new StringBuilder();
-        
-        for (int i = 0; i < this.mesas.size(); i++) {
-            sb.append("Mesa " + mesas.get(i).getNumero() + " | Capacidade: " + mesas.get(i).getCapacidade() + " | Disponivel: " + mesas.get(i).isDisponivel());
-            sb.append("\n");
-        }
-        
-        return sb.toString();
+        return mesas.stream()
+                    .map(mesa -> "Mesa " + mesa.getNumero() + " | Capacidade: " + mesa.getCapacidade() + " | Disponível: " + mesa.isDisponivel())
+                    .collect(Collectors.joining("\n"));
     }
-
+ 
     /**
       * Salva um novo cliente na lista
       * @param cliente cliente a salvo
@@ -118,14 +115,11 @@ public class Restaurante {
       * Verifica se o cliente é cadastrado
       * @param documento É utilizado para a busca
       */
-    public Cliente buscarCliente(long documento) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getDocumento() == documento) {
-                return cliente;
-            }
-        }
-
-        return null;
+      public Cliente buscarCliente(long documento) {
+        return clientes.stream()
+                       .filter(cliente -> cliente.getDocumento() == documento)
+                       .findFirst()
+                       .orElse(null);
     }
 
     /**
@@ -153,13 +147,10 @@ public class Restaurante {
       * @param quantPessoas É utilizado para a buscar a mesa de acordo com a capacidade
       */
     private Mesa procurarMesa(int quantPessoas) {
-        for (Mesa mesa : mesas) {
-            if (mesa.atendeRequisicao(quantPessoas)) {
-                return mesa;
-            }
-        }
-
-        return null;
+        return mesas.stream()
+                    .filter(mesa -> mesa.atendeRequisicao(quantPessoas))
+                    .findFirst()
+                    .orElse(null);
     }
     /**
       * Exibe o cardápio
@@ -203,11 +194,9 @@ public class Restaurante {
      * @return Retorna a requisição
      */
     public Requisicao localizarAtendida(int mesa) {
-        for (Requisicao req : requisicoesAtendidas) {
-            if (req.getMesa().getNumero() == mesa) {
-                return req;
-            }
-        }
-        return null;
+        return requisicoesAtendidas.stream()
+                                   .filter(req -> req.getMesa().getNumero() == mesa)
+                                   .findFirst()
+                                   .orElse(null);
     }
 }
