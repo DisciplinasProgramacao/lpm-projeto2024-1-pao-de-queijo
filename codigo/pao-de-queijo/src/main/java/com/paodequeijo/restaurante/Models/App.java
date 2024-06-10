@@ -1,5 +1,6 @@
 package com.paodequeijo.restaurante.Models;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -70,7 +71,7 @@ public class App {
         } catch (NumberFormatException e) {
             return null;
         }
-        
+
         Cliente cliente = buscarCliente(documento);
         if (cliente == null) {
             cliente = cadastrarNovoCliente(documento);
@@ -183,7 +184,7 @@ public class App {
         } catch (NumberFormatException e) {
             mesa = 0;
         }
-        
+
         Requisicao requisicao = restaurante.localizarAtendida(mesa);
 
         return requisicao;
@@ -227,8 +228,44 @@ public class App {
 
                 break;
             case 2:
-                
-                
+                cabecalhoCardapio();
+                CardapioFechado cardapioFechado = new CardapioFechado();
+                System.out.println(cardapioFechado.mostrarMenu());
+
+                for (int i = 0; i < 2; i++) {
+                    System.out.println("Escolha sua bebida " + (i + 1) + ":");
+
+                    try {
+                        idItem = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        idItem = 0;
+                    }
+
+                    Item bebida = cardapioFechado.itemEscolhido(idItem);
+                    if (bebida != null) {
+                        System.out.println(cardapioFechado.itemEscolhido(idItem));
+                    } else {
+                        System.out.println("Item inválido. Tente novamente.");
+                        i--;
+                    }
+                }
+
+                System.out.println("Escolha seu prato:");
+
+                try {
+                    idItem = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    idItem = 0;
+                }
+
+                Item prato = cardapioFechado.itemEscolhido(idItem);
+                if (prato != null) {
+                    System.out.println(cardapioFechado.itemEscolhido(idItem));
+                } else {
+                    System.out.println("Item inválido. Tente novamente.");
+                }
+                System.out.println(cardapioFechado.toString());
+
                 break;
             default:
                 idItem = -1;
