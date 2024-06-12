@@ -4,7 +4,7 @@ public class Cardapio {
     // #region Atributos
     private Item[] itens;
     // #endregion
-
+    private MenuFechado menuFechado;
     // #region Contrutor
     public Cardapio() {
         this.itens = inicializarItens();
@@ -26,6 +26,7 @@ public class Cardapio {
                 new StrogonoffDeCogumelos(),
                 new CaçarolaDeLegumes(),
         };
+
     }
 
     public String mostrarMenu() {

@@ -229,42 +229,31 @@ public class App {
                 break;
             case 2:
                 cabecalhoCardapio();
-                CardapioFechado cardapioFechado = new CardapioFechado();
-                System.out.println(cardapioFechado.mostrarMenu());
 
-                for (int i = 0; i < 2; i++) {
-                    System.out.println("Escolha sua bebida " + (i + 1) + ":");
+                MenuFechado menuFechado = new MenuFechado();
 
-                    try {
-                        idItem = Integer.parseInt(scanner.nextLine());
-                    } catch (NumberFormatException e) {
-                        idItem = 0;
-                    }
-
-                    Item bebida = cardapioFechado.itemEscolhido(idItem);
-                    if (bebida != null) {
-                        System.out.println(cardapioFechado.itemEscolhido(idItem));
-                    } else {
-                        System.out.println("Item inválido. Tente novamente.");
-                        i--;
-                    }
-                }
-
-                System.out.println("Escolha seu prato:");
-
+                System.out.println("Escolha um prato:");
+                System.out.println(MenuFechado.PRATOS);
                 try {
                     idItem = Integer.parseInt(scanner.nextLine());
                 } catch (NumberFormatException e) {
                     idItem = 0;
                 }
-
-                Item prato = cardapioFechado.itemEscolhido(idItem);
-                if (prato != null) {
-                    System.out.println(cardapioFechado.itemEscolhido(idItem));
-                } else {
-                    System.out.println("Item inválido. Tente novamente.");
+                System.out.println("Escolha uma bebida:");
+                System.out.println(MenuFechado.BEBIDAS);
+                try {
+                    idItem = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    idItem = 0;
                 }
-                System.out.println(cardapioFechado.toString());
+                System.out.println("Escolha uma bebida:");
+                System.out.println(MenuFechado.BEBIDAS);
+                try {
+                    idItem = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    idItem = 0;
+                }
+                idItem = 1; // Indicador de pedido criado com sucesso
 
                 break;
             default:
