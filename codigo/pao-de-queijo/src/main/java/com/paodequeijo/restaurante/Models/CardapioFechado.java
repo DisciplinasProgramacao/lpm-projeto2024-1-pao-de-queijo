@@ -1,5 +1,8 @@
 package com.paodequeijo.restaurante.Models;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class CardapioFechado {
     //#region Atributos
     private Item[] itens;
@@ -23,14 +26,10 @@ public class CardapioFechado {
         };
     }
     
-    public String mostrarMenu(){
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < itens.length; i++) {
-            sb.append((i+1) + ": " + itens[i].descricao);
-            sb.append("\n");
-        }
-        
-        return sb.toString();
+    public String mostrarMenu() {
+        return Arrays.stream(itens)
+                     .map(item -> (Arrays.asList(itens).indexOf(item) + 1) + ": " + item.descricao)
+                     .collect(Collectors.joining("\n"));
     }
 
     /**
