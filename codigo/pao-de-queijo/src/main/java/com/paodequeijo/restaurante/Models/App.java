@@ -229,9 +229,6 @@ public class App {
                 break;
             case 2:
                 cabecalhoCardapio();
-
-                MenuFechado menuFechado = new MenuFechado();
-
                 System.out.println("Escolha um prato:");
                 System.out.println(MenuFechado.PRATOS);
                 try {
