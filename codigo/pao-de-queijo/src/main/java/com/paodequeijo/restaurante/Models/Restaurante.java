@@ -164,7 +164,7 @@ public class Restaurante {
         @param item Idica qual o item 
       */
     public String adicionarItemAoPedido(int mesa, int idItem) {
-        Item item = cardapio.itemEscolhido(idItem);
+        EItem item = cardapio.itemEscolhido(idItem);
         Requisicao req = localizarAtendida(mesa);
         if(req != null){
             req.adicionarItemAoPedido(item);
