@@ -1,8 +1,7 @@
 package com.paodequeijo.restaurante.Models;
 public abstract class Item {
     //#region Atributos
-    protected double valor;
-    protected String descricao;
+    protected EItem item;
     //#endregion
 
     //#region Construtor
@@ -10,20 +9,19 @@ public abstract class Item {
      * Construtor da classe Bebida.
      * @param valor Valor da bebida.
      */
-    public Item(double valor, String descricao) {
-        this.valor = valor;
-        this.descricao = descricao;
+    public Item(EItem item) {
+        this.item = item;
     }
     //#endregion
 
     //#region Métodos de negócio
     public double getValor() {
-        return valor;
+        return item.getValor();
     }
 
     @Override
     public String toString() {
-        return String.format("%s: (R$ %2.2f)", descricao, valor);
+        return item.toString();
     }
     //#endregion
 }
