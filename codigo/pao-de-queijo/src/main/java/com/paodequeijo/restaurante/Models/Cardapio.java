@@ -8,7 +8,7 @@ public class Cardapio {
     // #region Atributos
     private List<EItem> meusItens;
     // #endregion
-
+    private MenuFechado menuFechado;
     // #region Contrutor
     public Cardapio() {
         meusItens = new ArrayList<>();
