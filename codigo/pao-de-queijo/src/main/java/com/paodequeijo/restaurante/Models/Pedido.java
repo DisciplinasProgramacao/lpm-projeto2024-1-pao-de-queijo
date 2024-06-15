@@ -1,19 +1,17 @@
 package com.paodequeijo.restaurante.Models;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Representa um pedido feito em uma mesa de restaurante.
- */
-public class Pedido {
-    //#region Atributos
+public abstract class Pedido {
+    // #region Atributos
     protected static final double GORJETA = 1.1;
     private List<Item> itens;
     private double total;
     public Mesa quantPessoas;
-    //#endregion
+    // #endregion
 
-    //#region Construtor
+    // #region Construtor
     /**
      * Construtor da classe Pedido.
      */
@@ -21,9 +19,9 @@ public class Pedido {
         this.itens = new ArrayList<>();
         this.total = 0;
     }
-    //#endregion
+    // #endregion
 
-    //#region Métodos
+    // #region Métodos
     /**
      * Adiciona um item ao pedido.
      * 
@@ -55,6 +53,13 @@ public class Pedido {
         return calcularTotal() / quantPessoas;
     }
 
+    /**
+     * Método abstrato para calcular desconto.
+     * 
+     * @return Desconto aplicado ao pedido.
+     */
+    public abstract double calcularDesconto();
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -65,5 +70,5 @@ public class Pedido {
         sb.append("Total (com gorjeta): R$").append(String.format("%.2f", calcularTotal())).append("\n");
         return sb.toString();
     }
-    //#endregion
+    // #endregion
 }

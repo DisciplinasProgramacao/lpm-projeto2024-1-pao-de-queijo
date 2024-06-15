@@ -169,6 +169,7 @@ public class App {
             opcao = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             opcao = -1;
+
         }
 
         return opcao;
@@ -200,6 +201,7 @@ public class App {
     static int MenuCardapio() {
         int opcao;
         int idItem = -1;
+        int idItemFechado = -1;
         cabecalho();
 
         System.out.println("1 - Cardápio");
@@ -231,40 +233,13 @@ public class App {
                 cabecalhoCardapio();
                 CardapioFechado cardapioFechado = new CardapioFechado();
                 System.out.println(cardapioFechado.mostrarMenu());
-
-                for (int i = 0; i < 2; i++) {
-                    System.out.println("Escolha sua bebida " + (i + 1) + ":");
-
-                    try {
-                        idItem = Integer.parseInt(scanner.nextLine());
-                    } catch (NumberFormatException e) {
-                        idItem = 0;
-                    }
-
-                    Item bebida = cardapioFechado.itemEscolhido(idItem);
-                    if (bebida != null) {
-                        System.out.println(cardapioFechado.itemEscolhido(idItem));
-                    } else {
-                        System.out.println("Item inválido. Tente novamente.");
-                        i--;
-                    }
-                }
-
-                System.out.println("Escolha seu prato:");
+                System.out.println("Qual o número do item que gostaria de pedir?");
 
                 try {
-                    idItem = Integer.parseInt(scanner.nextLine());
+                    idItemFechado = Integer.parseInt(scanner.nextLine());
                 } catch (NumberFormatException e) {
-                    idItem = 0;
+                    idItemFechado = 0;
                 }
-
-                Item prato = cardapioFechado.itemEscolhido(idItem);
-                if (prato != null) {
-                    System.out.println(cardapioFechado.itemEscolhido(idItem));
-                } else {
-                    System.out.println("Item inválido. Tente novamente.");
-                }
-                System.out.println(cardapioFechado.toString());
 
                 break;
             default:

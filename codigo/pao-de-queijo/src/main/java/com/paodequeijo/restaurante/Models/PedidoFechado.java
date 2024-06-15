@@ -1,20 +1,18 @@
 package com.paodequeijo.restaurante.Models;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MenuFechado extends Pedido {
-    // Valor fixo do menu fechado
+public class PedidoFechado extends Pedido {
+    
     private static final double VALOR_MENU_FECHADO = 32.00;
 
-    // Opções de pratos e bebidas permitidos no menu fechado
     static final List<String> PRATOS = List.of("Falafel assado", "Caçarola de legumes");
     static final List<String> BEBIDAS = List.of("Copo de suco", "Cerveja vegana", "Refrigerante orgânico");
 
     private boolean pratoEscolhido;
     private boolean bebidaEscolhida;
 
-    public MenuFechado() {
+    public PedidoFechado() {
         super();
         this.pratoEscolhido = false;
         this.bebidaEscolhida = false;
@@ -27,16 +25,20 @@ public class MenuFechado extends Pedido {
         } else if (BEBIDAS.contains(item.descricao) && !bebidaEscolhida) {
             bebidaEscolhida = true;
         } else {
-            return "Item inválido ou já escolhido.";
+            throw new IllegalArgumentException("Item inválido ou já escolhido.");
         }
         super.adicionarItem(item);
-        //trocar por excessão
         return String.format("%s adicionado(a) com sucesso ao pedido do Menu Fechado.", item.descricao);
     }
 
     @Override
     public double calcularTotal() {
-       
-            return VALOR_MENU_FECHADO * GORJETA;
+        return VALOR_MENU_FECHADO * GORJETA;
+    }
+
+    @Override
+    public double calcularDesconto() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'calcularDesconto'");
     }
 }
