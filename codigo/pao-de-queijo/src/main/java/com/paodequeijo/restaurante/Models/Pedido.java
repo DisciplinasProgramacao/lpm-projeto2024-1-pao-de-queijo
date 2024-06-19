@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class Pedido {
     // #region Atributos
     protected static final double GORJETA = 1.1;
-    private List<Item> itens;
+    private List<EItem> itens;
     private double total;
     public Mesa quantPessoas;
     // #endregion
@@ -28,10 +28,10 @@ public abstract class Pedido {
      * @param item Item a ser adicionado.
      * @return Mensagem de confirmação.
      */
-    public String adicionarItem(Item item) {
+    public String adicionarItem(EItem item) {
         itens.add(item);
         this.total += item.getValor();
-        return String.format("%s adicionado(a) com sucesso ao pedido.", item.descricao);
+        return String.format("%s adicionado(a) com sucesso ao pedido.", item.getDescricao());
     }
 
     /**
@@ -64,8 +64,8 @@ public abstract class Pedido {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Pedido:\n");
-        for (Item item : itens) {
-            sb.append(item.descricao).append(" = R$").append(item.valor).append("\n");
+        for (EItem item : itens) {
+            sb.append(item.getDescricao()).append(" = R$").append(item.getValor()).append("\n");
         }
         sb.append("Total (com gorjeta): R$").append(String.format("%.2f", calcularTotal())).append("\n");
         return sb.toString();

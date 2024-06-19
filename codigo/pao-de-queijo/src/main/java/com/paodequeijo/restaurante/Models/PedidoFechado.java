@@ -19,16 +19,16 @@ public class PedidoFechado extends Pedido {
     }
 
     @Override
-    public String adicionarItem(Item item) {
-        if (PRATOS.contains(item.descricao) && !pratoEscolhido) {
+    public String adicionarItem(EItem item) {
+        if (PRATOS.contains(item.getDescricao()) && !pratoEscolhido) {
             pratoEscolhido = true;
-        } else if (BEBIDAS.contains(item.descricao) && !bebidaEscolhida) {
+        } else if (BEBIDAS.contains(item.getDescricao()) && !bebidaEscolhida) {
             bebidaEscolhida = true;
         } else {
             throw new IllegalArgumentException("Item inválido ou já escolhido.");
         }
         super.adicionarItem(item);
-        return String.format("%s adicionado(a) com sucesso ao pedido do Menu Fechado.", item.descricao);
+        return String.format("%s adicionado(a) com sucesso ao pedido do Menu Fechado.", item.getDescricao());
     }
 
     @Override
