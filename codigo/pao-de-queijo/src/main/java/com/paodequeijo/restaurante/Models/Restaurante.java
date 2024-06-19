@@ -1,8 +1,7 @@
 package com.paodequeijo.restaurante.Models;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collector;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Representa o Restaurante
@@ -11,8 +10,8 @@ public class Restaurante {
 
     //#region Atributos
     private String nome;
-    private List<Cliente> clientes;
-    private List<Mesa> mesas;
+    private Map<Long, Cliente> clientes;
+    private Map<Integer, Mesa> mesas;
     private static List<Requisicao> requisicoesPendentes;
     private static List<Requisicao> requisicoesAtendidas;
     private static List<Requisicao> requisicoesFinalizadas;
@@ -28,17 +27,17 @@ public class Restaurante {
      * @param mesas  Lista de mesas
     */
     public Restaurante(String nome) {
-        this.nome = nome;
-        this.clientes = new ArrayList<>();
-        this.mesas = new ArrayList<>();
-        this.cardapio = new Cardapio();
-        criarMesas();
+      this.nome = nome;
+      this.clientes = new HashMap<>();
+      this.mesas = new HashMap<>();
+      this.cardapio = new Cardapio();
+      criarMesas();
 
-        Restaurante.requisicoesPendentes = new ArrayList<>();
-        Restaurante.requisicoesAtendidas = new ArrayList<>();
-        Restaurante.requisicoesFinalizadas = new ArrayList<>();
-        Restaurante.todasRequisicoes = new ArrayList<>();
-    }
+      requisicoesPendentes = new ArrayList<>();
+      requisicoesAtendidas = new ArrayList<>();
+      requisicoesFinalizadas = new ArrayList<>();
+      todasRequisicoes = new ArrayList<>();
+    } 
     //#endregion
 
     //#region Geters
@@ -57,9 +56,9 @@ public class Restaurante {
      * 2 mesas para 8 pessoas
      */
     private void criarMesas() {
-        gerarMesas(4, 4);
-        gerarMesas(6, 4);
-        gerarMesas(8, 2);
+      gerarMesas(4, 4);
+      gerarMesas(6, 4);
+      gerarMesas(8, 2);
     }
 
     /**
@@ -68,9 +67,12 @@ public class Restaurante {
      * @param quantidade Valor da quantidade de mesas a serem geradas
      */
     private void gerarMesas(int capacidade, int quantidade) {
-        for (int i = 1; i <= quantidade; i++) {
-            mesas.add(new Mesa(capacidade));
-        }
+      int start = mesas.size() + 1;
+      mesas.putAll(
+          IntStream.range(start, start + quantidade)
+                   .boxed()
+                   .collect(Collectors.toMap(i -> i, i -> new Mesa(i)))
+      );
     }
 
     /**
@@ -78,29 +80,26 @@ public class Restaurante {
      * @return String com a lista das mesas
      */
     public String imprimirMesas() {
-        return mesas.stream()
-                    .map(Mesa::toString)
-                    .collect(Collectors.joining("\n"));
+      return mesas.values().stream()
+                  .map(Mesa::toString)
+                  .collect(Collectors.joining("\n"));
     }
  
     /**
       * Salva um novo cliente na lista
       * @param cliente cliente a salvo
       */
-    public void salvarNovoCliente(Cliente cliente) {
-        clientes.add(cliente);
-    }
+      public void salvarNovoCliente(Cliente cliente) {
+        clientes.put(cliente.getDocumento(), cliente);
+      }
 
     /**
       * Verifica se o cliente é cadastrado
       * @param documento É utilizado para a busca
       */
       public Cliente buscarCliente(long documento) {
-        return clientes.stream()
-                       .filter(cliente -> cliente.getDocumento() == documento)
-                       .findFirst()
-                       .orElse(null);
-    }
+        return clientes.get(documento);
+      }
 
     /**
       * Cria uma Requisição
@@ -127,10 +126,10 @@ public class Restaurante {
       * @param quantPessoas É utilizado para a buscar a mesa de acordo com a capacidade
       */
     private Mesa procurarMesa(int quantPessoas) {
-        return mesas.stream()
-                    .filter(mesa -> mesa.atendeRequisicao(quantPessoas))
-                    .findFirst()
-                    .orElse(null);
+      return mesas.values().stream()
+                  .filter(mesa -> mesa.atendeRequisicao(quantPessoas))
+                  .findFirst()
+                  .orElse(null);
     }
     /**
       * Exibe o cardápio
@@ -143,30 +142,38 @@ public class Restaurante {
       * @param requisicao Idica qual Requisição 
         @param item Idica qual o item 
       */
-    public String adicionarItemAoPedido(int mesa, int idItem) {
-        EItem item = cardapio.itemEscolhido(idItem);
-        Requisicao req = localizarAtendida(mesa);
-        if(req != null){
-            req.adicionarItemAoPedido(item);
-            
-            return "\n" + item.toString() + " | adicionado(a) com sucesso.";
+      public String adicionarItemAoPedido(int mesa, int idItem) {
+        try {
+            EItem item = cardapio.itemEscolhido(idItem);
+            Requisicao req = localizarAtendida(mesa);
+            if (req != null) {
+                req.adicionarItemAoPedido(item);
+                return "\n" + item.toString() + " | adicionado com sucesso.";
+            }
+            return "Requisição não encontrada";
+        } catch (Exception e) {
+            return "Erro ao adicionar item ao pedido: " + e.getMessage();
         }
-
-        return "Requisição não encontrada";
-    }
+      }
 
     /**
       * Finaliza uma Requisição
       * @param mesa Número da mesa 
       */
-    public String finalizarRequisicao(int mesa) {
-        Requisicao requisicao = localizarAtendida(mesa);
-        requisicao.finalizar();
-        requisicoesAtendidas.remove(requisicao);
-        requisicoesFinalizadas.add(requisicao);
-
-        return requisicao.toString();
-    }
+      public String finalizarRequisicao(int mesa) {
+        try {
+            Requisicao requisicao = localizarAtendida(mesa);
+            if (requisicao != null) {
+                requisicao.finalizar();
+                requisicoesAtendidas.remove(requisicao);
+                requisicoesFinalizadas.add(requisicao);
+                return requisicao.toString();
+            }
+            return "Requisição não encontrada";
+        } catch (Exception e) {
+            return "Erro ao finalizar requisição: " + e.getMessage();
+        }
+      } 
 
     /**
      * Localiza uma requisição atendida
