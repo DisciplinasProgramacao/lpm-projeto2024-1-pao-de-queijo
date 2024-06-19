@@ -63,5 +63,10 @@ public class Mesa{
 
         return atende;
     }
+
+    @Override
+    public String toString() {
+        return "Mesa " + numero + " | Capacidade: " + capacidade + " | Disponível: " + disponivel;
+    }
     //#endregion
 }

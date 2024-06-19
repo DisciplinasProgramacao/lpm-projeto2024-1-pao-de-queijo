@@ -48,8 +48,7 @@ public class App {
         cabecalho();
 
         System.out.println("1 - Abrir Requisicao");
-        System.out.println("2 - Ver Requisicoes");
-        System.out.println("3 - Finalizar Requisicao");
+        System.out.println("2 - Finalizar Requisicao");
         System.out.println("0 - Sair");
         System.out.print("\nDigite sua opção: ");
 
@@ -117,26 +116,6 @@ public class App {
         requisicao = restaurante.criarRequisicao(cliente, quantPessoas);
 
         return requisicao;
-    }
-
-    static int MenuVerRequisicoes() {
-        int opcao;
-        cabecalho();
-
-        System.out.println("1 - Requisicoes Atendidas");
-        System.out.println("2 - Requisicoes Pendentes");
-        System.out.println("3 - Requisicoes Finalizadas");
-        System.out.println("4 - Todas");
-        System.out.println("0 - Sair");
-        System.out.print("\nDigite sua opção: ");
-
-        try {
-            opcao = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            opcao = -1;
-        }
-
-        return opcao;
     }
 
     static int MenuPedidos() {
@@ -285,34 +264,6 @@ public class App {
                             break;
 
                         case 2:
-                            opcao = MenuVerRequisicoes();
-                            switch (opcao) {
-                                case 1:
-                                    System.out.println(restaurante.getRequisicoesAtendidas());
-                                    pausa();
-                                    break;
-
-                                case 2:
-                                    System.out.println(restaurante.getRequisicoesPendentes());
-                                    pausa();
-                                    break;
-
-                                case 3:
-                                    System.out.println(restaurante.getRequisicoesFinalizadas());
-                                    pausa();
-                                    break;
-
-                                case 4:
-                                    System.out.println(restaurante.getTodasRequisicoes());
-                                    pausa();
-                                    break;
-
-                                default:
-                                    break;
-                            }
-                            break;
-
-                        case 3:
                             System.out.print("Qual o número da mesa? ");
 
                             try {
