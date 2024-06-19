@@ -3,7 +3,7 @@ package com.paodequeijo.restaurante.Models;
 import java.util.List;
 
 public class PedidoFechado extends Pedido {
-    
+
     private static final double VALOR_MENU_FECHADO = 32.00;
 
     static final List<String> PRATOS = List.of("Falafel assado", "Caçarola de legumes");
@@ -27,12 +27,19 @@ public class PedidoFechado extends Pedido {
         } else {
             throw new IllegalArgumentException("Item inválido ou já escolhido.");
         }
-        super.adicionarItem(item);
         return String.format("%s adicionado(a) com sucesso ao pedido do Menu Fechado.", item.getDescricao());
     }
 
     @Override
     public double calcularTotal() {
         return VALOR_MENU_FECHADO * GORJETA;
+    }
+
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pedido: Total (com gorjeta): R$").append(String.format("%.2f", calcularTotal())).append("\n");
+        return sb.toString();
     }
 }

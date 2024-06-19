@@ -34,7 +34,7 @@ public class Requisicao {
         this.cliente = cliente;
         this.atendida = false;
         this.mesa = null;
-        this.pedido =null;
+        this.pedido = new PedidoAberto();
     }
     // #endregion
 
