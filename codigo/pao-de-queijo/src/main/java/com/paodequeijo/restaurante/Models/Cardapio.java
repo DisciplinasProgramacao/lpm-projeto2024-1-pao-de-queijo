@@ -29,7 +29,6 @@ public class Cardapio {
                         .collect(Collectors.joining("\n"));
     }
 
-
     /**
      * Retorna o Item correspondente ao numero escolhido.
      * 
