@@ -45,26 +45,6 @@ public class Restaurante {
     public String getNome() {
         return nome;
     }
-
-    public List<Mesa> getMesas() {
-        return mesas;
-    }
-
-    public List<Requisicao> getRequisicoesPendentes() {
-        return requisicoesPendentes;
-    }
-
-    public List<Requisicao> getRequisicoesAtendidas() {
-        return requisicoesAtendidas;
-    }
-
-    public List<Requisicao> getRequisicoesFinalizadas() {
-        return requisicoesFinalizadas;
-    }
-
-    public List<Requisicao> getTodasRequisicoes() {
-        return todasRequisicoes;
-    }
     //#endregion
 
     //#region Métodos
@@ -99,7 +79,7 @@ public class Restaurante {
      */
     public String imprimirMesas() {
         return mesas.stream()
-                    .map(mesa -> "Mesa " + mesa.getNumero() + " | Capacidade: " + mesa.getCapacidade() + " | Disponível: " + mesa.isDisponivel())
+                    .map(Mesa::toString)
                     .collect(Collectors.joining("\n"));
     }
  
