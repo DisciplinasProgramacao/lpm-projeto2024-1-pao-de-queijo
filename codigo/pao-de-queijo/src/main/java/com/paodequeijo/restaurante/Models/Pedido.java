@@ -53,13 +53,6 @@ public abstract class Pedido {
         return calcularTotal() / quantPessoas;
     }
 
-    /**
-     * Método abstrato para calcular desconto.
-     * 
-     * @return Desconto aplicado ao pedido.
-     */
-    public abstract double calcularDesconto();
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
