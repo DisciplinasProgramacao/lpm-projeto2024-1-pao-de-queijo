@@ -84,15 +84,8 @@ public class Requisicao {
      * 
      * @param item Item a ser adicionado ao pedido.
      */
-    public void adicionarItemAoPedido(Item item) {
-        if (this.pedido == null) {
-            throw new IllegalStateException("Pedido não foi iniciado.");
-        }
-        try {
-            this.pedido.adicionarItem(item);
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao adicionar item ao pedido: " + e.getMessage(), e);
-        }
+    public void adicionarItemAoPedido(EItem item) {
+        this.pedido.adicionarItem(item);
     }
 
     /**

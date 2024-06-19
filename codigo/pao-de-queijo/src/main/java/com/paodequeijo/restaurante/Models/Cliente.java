@@ -15,15 +15,7 @@ public class Cliente {
         this.documento = string;
     }
 
-    //#region Geters e Seters
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setDocumento(Long documento) {
-        this.documento = documento;
-    }
-
+    //#region Geters
     public String getNome() {
         return nome;
     }

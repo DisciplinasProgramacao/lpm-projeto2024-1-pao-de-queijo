@@ -1,40 +1,32 @@
 package com.paodequeijo.restaurante.Models;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Cardapio {
     // #region Atributos
-    private Item[] itens;
+    private List<EItem> meusItens;
     // #endregion
+
     // #region Contrutor
     public Cardapio() {
-        this.itens = inicializarItens();
+        meusItens = new ArrayList<>();
+        inicializarItens();
     }
     // #endregion
 
     // #region Métodos de negócio
-    private Item[] inicializarItens() {
-        return new Item[] {
-                new Agua(),
-                new CopoDeSuco(),
-                new RefrigeranteOrganico(),
-                new CervejaVegana(),
-                new TacaDeVinhoVegano(),
-                new MoquecaDePalmito(),
-                new FalafelAssado(),
-                new SaladaPrimaveraComMacarraoKonjac(),
-                new EscondidinhoDeInhame(),
-                new StrogonoffDeCogumelos(),
-                new CaçarolaDeLegumes(),
-        };
-
+    private void inicializarItens() {
+        for (EItem item : EItem.values()) {
+            meusItens.add(item);
+        }
     }
 
     public String mostrarMenu() {
-        return Arrays.stream(itens)
-                     .map(item -> (Arrays.asList(itens).indexOf(item) + 1) + ": " + item.descricao)
-                     .collect(Collectors.joining("\n"));
+        return meusItens.stream()
+                        .map(item -> (meusItens.indexOf(item) + 1) + ": " + item)
+                        .collect(Collectors.joining("\n"));
     }
 
 
@@ -44,9 +36,9 @@ public class Cardapio {
      * @param opcao
      * @return
      */
-    public Item itemEscolhido(int opcao) {
+    public EItem itemEscolhido(int opcao) {
         int pos = opcao - 1;
-        return itens[pos];
+        return meusItens.get(pos);
     }
     // #endregion
 }

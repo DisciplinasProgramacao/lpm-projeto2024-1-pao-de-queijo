@@ -236,10 +236,11 @@ public class App {
                 System.out.println("Qual o número do item que gostaria de pedir?");
 
                 try {
-                    idItemFechado = Integer.parseInt(scanner.nextLine());
+                    idItem = Integer.parseInt(scanner.nextLine());
                 } catch (NumberFormatException e) {
-                    idItemFechado = 0;
+                    idItem = 0;
                 }
+                idItem = 1; // Indicador de pedido criado com sucesso
 
                 break;
             default:
