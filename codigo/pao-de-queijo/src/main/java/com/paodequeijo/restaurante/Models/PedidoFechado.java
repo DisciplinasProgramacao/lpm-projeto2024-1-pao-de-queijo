@@ -35,10 +35,4 @@ public class PedidoFechado extends Pedido {
     public double calcularTotal() {
         return VALOR_MENU_FECHADO * GORJETA;
     }
-
-    @Override
-    public double calcularDesconto() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calcularDesconto'");
-    }
 }

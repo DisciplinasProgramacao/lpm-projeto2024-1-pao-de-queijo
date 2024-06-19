@@ -23,8 +23,6 @@ public class CardapioFechado {
             meusItens.add(item);
         }
     }
-
-   
     
     public String mostrarMenu() {
         return meusItens.stream()

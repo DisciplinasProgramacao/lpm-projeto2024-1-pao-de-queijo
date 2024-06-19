@@ -258,7 +258,7 @@ public class App {
                                 break;
                             }
 
-                            pedido = new Pedido();
+                            pedido = new PedidoAberto();
                             System.out.println(requisicao);
                             pausa();
                             break;
