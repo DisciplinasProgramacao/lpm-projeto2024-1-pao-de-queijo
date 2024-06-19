@@ -8,7 +8,7 @@ public class Cardapio {
     // #region Atributos
     private List<EItem> meusItens;
     // #endregion
-    private MenuFechado menuFechado;
+
     // #region Contrutor
     public Cardapio() {
         meusItens = new ArrayList<>();
@@ -28,6 +28,7 @@ public class Cardapio {
                         .map(item -> (meusItens.indexOf(item) + 1) + ": " + item)
                         .collect(Collectors.joining("\n"));
     }
+
 
     /**
      * Retorna o Item correspondente ao numero escolhido.

@@ -169,6 +169,7 @@ public class App {
             opcao = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             opcao = -1;
+
         }
 
         return opcao;
@@ -200,6 +201,7 @@ public class App {
     static int MenuCardapio() {
         int opcao;
         int idItem = -1;
+        int idItemFechado = -1;
         cabecalho();
 
         System.out.println("1 - Cardápio");
@@ -229,22 +231,10 @@ public class App {
                 break;
             case 2:
                 cabecalhoCardapio();
-                System.out.println("Escolha um prato:");
-                System.out.println(MenuFechado.PRATOS);
-                try {
-                    idItem = Integer.parseInt(scanner.nextLine());
-                } catch (NumberFormatException e) {
-                    idItem = 0;
-                }
-                System.out.println("Escolha uma bebida:");
-                System.out.println(MenuFechado.BEBIDAS);
-                try {
-                    idItem = Integer.parseInt(scanner.nextLine());
-                } catch (NumberFormatException e) {
-                    idItem = 0;
-                }
-                System.out.println("Escolha uma bebida:");
-                System.out.println(MenuFechado.BEBIDAS);
+                CardapioFechado cardapioFechado = new CardapioFechado();
+                System.out.println(cardapioFechado.mostrarMenu());
+                System.out.println("Qual o número do item que gostaria de pedir?");
+
                 try {
                     idItem = Integer.parseInt(scanner.nextLine());
                 } catch (NumberFormatException e) {
