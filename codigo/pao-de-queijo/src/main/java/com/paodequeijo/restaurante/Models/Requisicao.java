@@ -28,12 +28,13 @@ public class Requisicao {
      * @param quantPessoas Quantidade de pessoas na requisição.
      * @param cliente      Cliente que fez a requisição.
      */
-    public Requisicao(int quantPessoas, Cliente cliente) {
+    public Requisicao(int quantPessoas, Cliente cliente, Pedido pedido) {
         this.id = ++ultimoId;
         this.quantPessoas = quantPessoas;
         this.cliente = cliente;
         this.atendida = false;
         this.mesa = null;
+        this.pedido = pedido;
     }
     // #endregion
 
@@ -76,6 +77,16 @@ public class Requisicao {
     public void associarMesa(Mesa mesa) {
         this.mesa = mesa;
         mesa.setDisponivel(false);
+    }
+
+    /**
+     * Localiza um item no cardápio associado à requisição.
+     * 
+     * @param idItem Identificador do item a ser localizado.
+     * @return Item localizado.
+     */
+    public EItem localizarItem(int idItem) {
+        return pedido.cardapio.itemEscolhido(idItem);
     }
 
     /**

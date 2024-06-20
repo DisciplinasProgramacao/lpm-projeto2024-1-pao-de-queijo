@@ -9,6 +9,7 @@ public abstract class Pedido {
     protected List<EItem> itens;
     protected double total;
     public Mesa quantPessoas;
+    public Cardapio cardapio;
     // #endregion
 
     // #region Construtor
@@ -47,4 +48,11 @@ public abstract class Pedido {
         return calcularTotal() / quantPessoas;
     }
     // #endregion
+
+    /**
+     * Exibe o cardápio
+     */
+    public String exibirCardapio() {
+        return cardapio.mostrarMenu();
+    }
 }

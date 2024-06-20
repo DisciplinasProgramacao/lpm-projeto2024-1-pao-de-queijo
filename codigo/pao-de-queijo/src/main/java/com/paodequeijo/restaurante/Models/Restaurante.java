@@ -16,7 +16,6 @@ public class Restaurante {
     private static List<Requisicao> requisicoesAtendidas;
     private static List<Requisicao> requisicoesFinalizadas;
     private static List<Requisicao> todasRequisicoes;
-    private Cardapio cardapio;
     //#endregion
 
     //#region Construtor
@@ -30,7 +29,6 @@ public class Restaurante {
       this.nome = nome;
       this.clientes = new HashMap<>();
       this.mesas = new HashMap<>();
-      this.cardapio = new Cardapio();
       criarMesas();
 
       requisicoesPendentes = new ArrayList<>();
@@ -106,8 +104,8 @@ public class Restaurante {
       * @param cliente É atribuido à Requisição
       * @param quantPessoas É utilizado para buscar uma mesa disponível de acordo com a capacidade
       */
-    public Requisicao criarRequisicao(Cliente cliente, int quantPessoas) {
-        Requisicao requisicao = new Requisicao(quantPessoas, cliente);
+    public Requisicao criarRequisicao(Cliente cliente, int quantPessoas, Pedido pedido) {
+        Requisicao requisicao = new Requisicao(quantPessoas, cliente, pedido);
         todasRequisicoes.add(requisicao);
 
         Mesa mesaDisponivel = procurarMesa(quantPessoas);
@@ -131,30 +129,6 @@ public class Restaurante {
                   .findFirst()
                   .orElse(null);
     }
-    /**
-      * Exibe o cardápio
-      */
-    public String exibirCardapio() {
-        return cardapio.mostrarMenu();
-    }
-    /**
-      * Adiciona um item ao pedido de uma requisição
-      * @param requisicao Idica qual Requisição 
-        @param item Idica qual o item 
-      */
-      public String adicionarItemAoPedido(int mesa, int idItem) {
-        try {
-            EItem item = cardapio.itemEscolhido(idItem);
-            Requisicao req = localizarAtendida(mesa);
-            if (req != null) {
-                req.adicionarItemAoPedido(item);
-                return "\n" + item.toString() + " | adicionado com sucesso.";
-            }
-            return "Requisição não encontrada";
-        } catch (Exception e) {
-            return "Erro ao adicionar item ao pedido: " + e.getMessage();
-        }
-      }
 
     /**
       * Finaliza uma Requisição
@@ -199,5 +173,17 @@ public class Restaurante {
     } else {
       throw new IllegalArgumentException("Mesa não encontrada.");
     }
+  }
+
+  /**
+     * Adiciona um item ao pedido de uma requisição
+     * 
+     * @param requisicao Indica qual Requisição
+     * @param item       Indica qual o item
+     */
+    public String adicionarItem(Requisicao requisicao, int idItem) {
+      EItem item = requisicao.localizarItem(idItem);
+      requisicao.adicionarItemAoPedido(item);
+      return "\n" + item.toString() + " | adicionado com sucesso.";
   }
 }
