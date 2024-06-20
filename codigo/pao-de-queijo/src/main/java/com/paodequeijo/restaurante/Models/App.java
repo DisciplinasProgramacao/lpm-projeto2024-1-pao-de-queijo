@@ -1,6 +1,5 @@
 package com.paodequeijo.restaurante.Models;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -62,18 +61,23 @@ public class App {
     }
 
     static Requisicao abrirRequisicao() {
+        Cliente cliente;
         long documento;
         System.out.print("Qual o seu documento (somente números)? ");
 
         try {
             documento = Long.parseLong(scanner.nextLine());
+            cliente = restaurante.buscarCliente(documento); 
         } catch (NumberFormatException e) {
             return null;
         }
 
-        Cliente cliente = restaurante.buscarCliente(documento);;
         if (cliente == null) {
             cliente = cadastrarNovoCliente(documento);
+        } 
+
+        if (cliente == null) {
+            return null;
         }
 
         Requisicao requisicao = criarRequisicao(cliente);
@@ -85,9 +89,15 @@ public class App {
 
         System.out.print("Qual o seu nome? ");
         String nome = scanner.nextLine();
-        cliente = new Cliente(nome, documento);
-        restaurante.salvarNovoCliente(cliente);
 
+        try {
+            cliente = new Cliente(nome, documento);
+            restaurante.salvarNovoCliente(cliente);
+        } catch (IllegalArgumentException ie) {
+            System.out.println(ie.getMessage());
+            return null;
+        }
+        
         return cliente;
     }
 
@@ -169,7 +179,6 @@ public class App {
     static int MenuCardapio() {
         int opcao;
         int idItem = -1;
-        int idItemFechado = -1;
         cabecalho();
 
         System.out.println("1 - Cardápio");
@@ -239,10 +248,16 @@ public class App {
                     opcao = MenuRequisicoes();
                     switch (opcao) {
                         case 1:
-                            requisicao = abrirRequisicao();
+                            try {
+                                requisicao = abrirRequisicao();
+                            } catch (NullPointerException ne) { 
+                                System.out.println(ne.getMessage());
+                                pausa();
+                                break;
+                            }
 
                             if (requisicao == null) {
-                                System.out.println("Documento inválido.");
+                                System.out.println("Requisiçao cancelada.");
                                 pausa();
                                 break;
                             }
@@ -262,7 +277,6 @@ public class App {
                                 System.out.println("Número de mesa inválido.");
                                 pausa();
                             }
-
                             break;
 
                         default:
@@ -277,16 +291,25 @@ public class App {
                             System.out.println("\nQual o numero da mesa?");
                             System.out.println("(Se ainda não tiver mesa envie 0 para voltar) ");
 
+                            int numeroMesa = Integer.parseInt(scanner.nextLine());
+
                             try {
-                                int mesa = Integer.parseInt(scanner.nextLine());
-                                int idItem = MenuCardapio();
-                                System.out.println(restaurante.adicionarItemAoPedido(mesa, idItem));
+                                boolean mesaVazia = restaurante.mesaIsDisponivel(numeroMesa);
+
+                                if (mesaVazia) {
+                                    System.out.println("Mesa vazia.");
+                                    pausa();
+                                    break;
+                                }
+                            } catch (IllegalArgumentException ie) {
+                                System.out.println(ie.getMessage());
                                 pausa();
-                            } catch (NumberFormatException e) {
-                                System.out.println("Número de mesa inválido.");
-                                pausa();
+                                break;
                             }
 
+                            int idItem = MenuCardapio();
+                            System.out.println(restaurante.adicionarItemAoPedido(numeroMesa, idItem));
+                            pausa();
                             break;
 
                         case 2:

@@ -27,6 +27,7 @@ public class PedidoFechado extends Pedido {
         } else {
             throw new IllegalArgumentException("Item inválido ou já escolhido.");
         }
+
         return String.format("%s adicionado(a) com sucesso ao pedido do Menu Fechado.", item.getDescricao());
     }
 
@@ -35,7 +36,6 @@ public class PedidoFechado extends Pedido {
         return VALOR_MENU_FECHADO * GORJETA;
     }
 
-    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

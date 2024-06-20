@@ -186,4 +186,18 @@ public class Restaurante {
                                    .findFirst()
                                    .orElse(null);
     }
+
+  /**
+   * Localiza uma mesa
+   * 
+   * @param numero Número da mesa
+   * @return Retorna a mesa
+   */
+  public boolean mesaIsDisponivel(int numero) {
+    if (mesas.get(numero) != null) {
+      return mesas.get(numero).isDisponivel();
+    } else {
+      throw new IllegalArgumentException("Mesa não encontrada.");
+    }
+  }
 }

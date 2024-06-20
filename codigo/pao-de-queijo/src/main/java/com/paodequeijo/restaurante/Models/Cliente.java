@@ -8,11 +8,15 @@ public class Cliente {
     /**
      * Construtor da classe Cliente
      * @param nome
-     * @param string
+     * @param documento
      */
-    Cliente(String nome, Long string) {
+    Cliente(String nome, Long documento) {
+        if (nome.length() == 0) {
+            throw new IllegalArgumentException("Nome do cliente não pode ser vazio.");
+        }
+        
         this.nome = nome;
-        this.documento = string;
+        this.documento = documento;
     }
 
     //#region Geters
