@@ -71,22 +71,13 @@ public class App {
             return null;
         }
 
-        Cliente cliente = buscarCliente(documento);
+        Cliente cliente = restaurante.buscarCliente(documento);;
         if (cliente == null) {
             cliente = cadastrarNovoCliente(documento);
         }
 
         Requisicao requisicao = criarRequisicao(cliente);
         return requisicao;
-    }
-
-    static Cliente buscarCliente(long documento) {
-        Cliente cliente;
-        cabecalho();
-
-        cliente = restaurante.buscarCliente(documento);
-
-        return cliente;
     }
 
     static Cliente cadastrarNovoCliente(long documento) {
@@ -112,8 +103,6 @@ public class App {
         } catch (NumberFormatException e) {
             requisicao = null;
         }
-
-        requisicao = restaurante.criarRequisicao(cliente, quantPessoas);
 
         return requisicao;
     }
@@ -258,7 +247,6 @@ public class App {
                                 break;
                             }
 
-                            pedido = new PedidoAberto();
                             System.out.println(requisicao);
                             pausa();
                             break;

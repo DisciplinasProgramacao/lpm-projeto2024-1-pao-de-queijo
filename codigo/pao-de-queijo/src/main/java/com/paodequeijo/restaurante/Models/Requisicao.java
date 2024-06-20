@@ -34,7 +34,6 @@ public class Requisicao {
         this.cliente = cliente;
         this.atendida = false;
         this.mesa = null;
-        this.pedido = new PedidoAberto();
     }
     // #endregion
 
@@ -116,8 +115,8 @@ public class Requisicao {
                     + cliente.getNome();
         } else {
             return "\nRequisição " + id + " na mesa " + mesa.getNumero() + " com " + quantPessoas
-                    + " pessoas | Cliente: " + cliente.getNome() + "O valor total a pagar é de R$ "
-                    + pedido.calcularTotal() + "o total por pessoa é de " + pedido.calcularValorPorPessoa(quantPessoas);
+                    + " pessoas | Cliente: " + cliente.getNome() + " | Total a pagar: R$ "
+                    + pedido.calcularTotal() + " | Total por pessoa: R$ " + pedido.calcularValorPorPessoa(quantPessoas);
         }
     }
     // #endregion
