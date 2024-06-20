@@ -7,6 +7,7 @@ public class PedidoAberto extends Pedido {
      */
     public PedidoAberto() {
         super();
+        this.cardapio = new CardapioAberto();
     }
     // #endregion
 

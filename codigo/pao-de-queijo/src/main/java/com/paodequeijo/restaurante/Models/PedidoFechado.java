@@ -14,6 +14,7 @@ public class PedidoFechado extends Pedido {
 
     public PedidoFechado() {
         super();
+        this.cardapio = new CardapioFechado();
         this.pratoEscolhido = false;
         this.bebidaEscolhida = false;
     }

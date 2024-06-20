@@ -2,11 +2,10 @@ package com.paodequeijo.restaurante.Models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Cardapio {
-    // #region Atributos
-    private List<EItem> meusItens;
+public abstract class Cardapio {
+     //#region Atributos
+       protected List<EItem> meusItens;
     // #endregion
 
     // #region Contrutor
@@ -17,21 +16,23 @@ public class Cardapio {
     // #endregion
 
     // #region Métodos de negócio
+    /**
+     * Inicializa os itens do cardápio.
+     */
     private void inicializarItens() {
         for (EItem item : EItem.values()) {
             meusItens.add(item);
         }
     }
 
-    public String mostrarMenu() {
-        return meusItens.stream()
-                        .map(item -> (meusItens.indexOf(item) + 1) + ": " + item)
-                        .collect(Collectors.joining("\n"));
-    }
+    /**
+     * Mostra o cardápio.
+     * @return Cardápio.
+     */
+    public abstract String mostrarMenu();
 
     /**
      * Retorna o Item correspondente ao numero escolhido.
-     * 
      * @param opcao
      * @return
      */

@@ -103,18 +103,51 @@ public class App {
 
     static Requisicao criarRequisicao(Cliente cliente) {
         Requisicao requisicao;
+        Pedido pedido;
         int quantPessoas = 0;
 
-        System.out.print("Bem-vindo(a), " + cliente.getNome() + "! Mesa para quantas pessoas? ");
+        pedido = criarPedido();
 
+        System.out.print("Bem-vindo(a), " + cliente.getNome() + "! Mesa para quantas pessoas? ");
         try {
             quantPessoas = Integer.parseInt(scanner.nextLine());
-            requisicao = restaurante.criarRequisicao(cliente, quantPessoas);
+            requisicao = restaurante.criarRequisicao(cliente, quantPessoas, pedido);
         } catch (NumberFormatException e) {
             requisicao = null;
         }
 
         return requisicao;
+    }
+
+    static Pedido criarPedido() {
+        int opcao;
+        Pedido pedido;
+        System.out.println("\n1 - Pedido com cardápo aberto");
+        System.out.println("2 - Pedido com cardápio fechado");
+        System.out.println("0 - Sair");
+        System.out.print("\nDigite sua opção: ");
+
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            throw new NullPointerException("Opção inválida.");
+        }
+
+        switch (opcao) {
+            case 1:
+                pedido = new PedidoAberto();
+                break;
+            
+            case 2:
+                pedido = new PedidoFechado();
+                break;
+        
+            default:
+                pedido = null;
+                break;
+        }
+
+        return pedido;
     }
 
     static int MenuPedidos() {
@@ -154,17 +187,28 @@ public class App {
     }
 
     static Requisicao buscarRequisicao() {
-        int mesa = 0;
+        int numeroMesa;
+
         System.out.println("\nQual o numero da mesa?");
         System.out.println("(Se ainda não tiver mesa envie 0 para voltar) ");
 
+        numeroMesa = Integer.parseInt(scanner.nextLine());
+
         try {
-            mesa = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            mesa = 0;
+            boolean mesaVazia = restaurante.mesaIsDisponivel(numeroMesa);
+
+            if (mesaVazia) {
+                System.out.println("Mesa vazia.");
+                pausa();
+                return null;
+            }
+        } catch (IllegalArgumentException ie) {
+            System.out.println(ie.getMessage());
+            pausa();
+            return null;
         }
 
-        Requisicao requisicao = restaurante.localizarAtendida(mesa);
+        Requisicao requisicao = restaurante.localizarAtendida(numeroMesa);
 
         return requisicao;
     }
@@ -176,53 +220,17 @@ public class App {
         System.out.println("========================================");
     }
 
-    static int MenuCardapio() {
-        int opcao;
-        int idItem = -1;
-        cabecalho();
+    static int MenuCardapio(Pedido pedido) {
+        int idItem;
 
-        System.out.println("1 - Cardápio");
-        System.out.println("2 - Cardapio Fechado");
-        System.out.println("0 - Sair");
-        System.out.print("Digite sua opção: ");
+        cabecalhoCardapio();
+        System.out.println(pedido.exibirCardapio());
+        System.out.println("Qual o número do item que gostaria de pedir?");
 
         try {
-            opcao = Integer.parseInt(scanner.nextLine());
+            idItem = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            opcao = -1;
-        }
-
-        switch (opcao) {
-            case 1:
-                cabecalhoCardapio();
-                Cardapio cardapio = new Cardapio();
-                System.out.println(cardapio.mostrarMenu());
-                System.out.println("Qual o número do item que gostaria de pedir?");
-
-                try {
-                    idItem = Integer.parseInt(scanner.nextLine());
-                } catch (NumberFormatException e) {
-                    idItem = 0;
-                }
-
-                break;
-            case 2:
-                cabecalhoCardapio();
-                CardapioFechado cardapioFechado = new CardapioFechado();
-                System.out.println(cardapioFechado.mostrarMenu());
-                System.out.println("Qual o número do item que gostaria de pedir?");
-
-                try {
-                    idItem = Integer.parseInt(scanner.nextLine());
-                } catch (NumberFormatException e) {
-                    idItem = 0;
-                }
-                idItem = 1; // Indicador de pedido criado com sucesso
-
-                break;
-            default:
-                idItem = -1;
-                break;
+            idItem = 0;
         }
 
         return idItem;
@@ -288,27 +296,23 @@ public class App {
                     opcao = MenuPedidos();
                     switch (opcao) {
                         case 1:
-                            System.out.println("\nQual o numero da mesa?");
-                            System.out.println("(Se ainda não tiver mesa envie 0 para voltar) ");
-
-                            int numeroMesa = Integer.parseInt(scanner.nextLine());
-
-                            try {
-                                boolean mesaVazia = restaurante.mesaIsDisponivel(numeroMesa);
-
-                                if (mesaVazia) {
-                                    System.out.println("Mesa vazia.");
+                            requisicao = buscarRequisicao();
+                            if (requisicao != null) {
+                                try {
+                                    pedido = requisicao.getPedido();
+                                } catch (NullPointerException ne) {
+                                    System.out.println(ne.getMessage());
                                     pausa();
                                     break;
                                 }
-                            } catch (IllegalArgumentException ie) {
-                                System.out.println(ie.getMessage());
+                            } else {
+                                System.out.println("Requisicao não encontrada.");
                                 pausa();
                                 break;
                             }
 
-                            int idItem = MenuCardapio();
-                            System.out.println(restaurante.adicionarItemAoPedido(numeroMesa, idItem));
+                            int idItem = MenuCardapio(pedido);
+                            System.out.println(restaurante.adicionarItem(requisicao, idItem));
                             pausa();
                             break;
 
@@ -322,6 +326,10 @@ public class App {
                                 System.out.println("Tecle Enter para voltar ao menu principal.");
                                 scanner.nextLine();
                             }
+                            break;
+
+                        default:
+                            break;
                     }
                     break;
 
