@@ -69,7 +69,7 @@ public class Restaurante {
       mesas.putAll(
           IntStream.range(start, start + quantidade)
                    .boxed()
-                   .collect(Collectors.toMap(i -> i, i -> new Mesa(i)))
+                   .collect(Collectors.toMap(i -> i, i -> new Mesa(capacidade)))
       );
     }
 
