@@ -9,12 +9,14 @@ public class PedidoFechado extends Pedido {
     static final List<String> PRATOS = List.of("Falafel assado", "Caçarola de legumes");
     static final List<String> BEBIDAS = List.of("Copo de suco", "Cerveja vegana", "Refrigerante orgânico");
 
+    private int quantPessoas;
     private boolean pratoEscolhido;
     private boolean bebidaEscolhida;
 
-    public PedidoFechado() {
+    public PedidoFechado(int quantPessoas) {
         super();
         this.cardapio = new CardapioFechado();
+        this.quantPessoas = quantPessoas;
         this.pratoEscolhido = false;
         this.bebidaEscolhida = false;
     }
@@ -34,7 +36,7 @@ public class PedidoFechado extends Pedido {
 
     @Override
     public double calcularTotal() {
-        return VALOR_MENU_FECHADO * GORJETA;
+        return VALOR_MENU_FECHADO * quantPessoas * GORJETA;
     }
 
     @Override
