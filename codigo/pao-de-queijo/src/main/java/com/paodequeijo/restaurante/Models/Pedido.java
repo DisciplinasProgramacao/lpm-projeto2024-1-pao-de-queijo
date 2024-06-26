@@ -8,7 +8,6 @@ public abstract class Pedido {
     protected static final double GORJETA = 1.1;
     protected List<EItem> itens;
     protected double total;
-    public Mesa quantPessoas;
     public Cardapio cardapio;
     // #endregion
 
@@ -51,6 +50,7 @@ public abstract class Pedido {
 
     /**
      * Exibe o cardápio
+     * @return String com os itens do cardápio 
      */
     public String exibirCardapio() {
         return cardapio.mostrarMenu();
