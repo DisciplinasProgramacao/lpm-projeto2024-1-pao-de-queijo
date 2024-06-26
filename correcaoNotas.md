@@ -45,3 +45,26 @@ Comidas/Bebidas/Item - ok
 Requisicao - getPedido desnecessário - ok
 
 App - ok
+
+## Sprint 3 - Até 05/junho
+  - Nota de grupo (6 pontos)
+    - Modelo atualizado - menu fechado
+  
+  - Nota individual (14 pontos)	
+    - Implementações menu fechado e app
+    - Correções anteriores
+
+### Revisão 12/06
+Diagrama ainda sem menu/pedido fechado - Todos - 0
+
+App: chamadas desnecessárias/simples
+
+App: polimorfismo de Cardápio e Cardápio Fechado
+
+CardapioFechado: sem 'for' no cardápio fechado. 
+
+Restaurante: colecoes x arraylist. get para todas as listas. gets em sequencia. buscar cliente: mapa
+
+Cardápio/cardápio fechado: abstracao
+  
+Colaborações: (Nicolás, Raquel++++), Matheus(++)
