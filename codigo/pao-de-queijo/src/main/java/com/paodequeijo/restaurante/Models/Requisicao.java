@@ -38,27 +38,7 @@ public class Requisicao {
     }
     // #endregion
 
-    // #region Getters e Setters
-    public int getId() {
-        return id;
-    }
-
-    public int getQuantPessoas() {
-        return quantPessoas;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public boolean isAtendida() {
-        return atendida;
-    }
-
-    public LocalDateTime getHoraSaida() {
-        return horaSaida;
-    }
-
+    // #region Getters
     public Mesa getMesa() {
         return mesa;
     }
@@ -101,7 +81,7 @@ public class Requisicao {
     /**
      * Finaliza a requisição, definindo a hora de saída e marcando como finalizada.
      * 
-     * @param horaSaida2
+     * @param horaSaida Horário local que a finalização foi feita.
      */
     public void finalizar() {
         this.horaSaida = LocalDateTime.now();
@@ -131,5 +111,4 @@ public class Requisicao {
         }
     }
     // #endregion
-
 }

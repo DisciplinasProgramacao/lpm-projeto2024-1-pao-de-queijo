@@ -32,18 +32,6 @@ public class Mesa{
         return numero;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public int getCapacidade() {
-        return capacidade;
-    }
-
-    public void setCapacidade(int capacidade) {
-        this.capacidade = capacidade;
-    }
-
     public boolean isDisponivel() {
         return disponivel;
     }
