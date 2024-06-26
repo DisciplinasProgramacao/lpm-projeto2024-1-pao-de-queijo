@@ -13,9 +13,9 @@ public class CardapioFechado extends Cardapio {
     @Override    
     public String mostrarMenu() {
         return meusItens.stream()
-        .map(item -> (meusItens.indexOf(item) + 1) + ": " + item)
-        .limit((5))
-        .collect(Collectors.joining("\n"));
+                        .map(item -> (meusItens.indexOf(item) + 1) + ": " + item)
+                        .limit((5))
+                        .collect(Collectors.joining("\n"));
     }
     // #endregion
 }
