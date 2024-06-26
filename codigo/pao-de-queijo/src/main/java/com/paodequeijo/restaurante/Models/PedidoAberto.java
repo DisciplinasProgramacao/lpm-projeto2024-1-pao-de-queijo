@@ -18,10 +18,11 @@ public class PedidoAberto extends Pedido {
      * @param item Item a ser adicionado.
      * @return Mensagem de confirmação.
      */
+    @Override
     public String adicionarItem(EItem item) {
         itens.add(item);
         this.total += item.getValor();
-        return String.format("%s adicionado(a) com sucesso ao pedido.", item.getDescricao());
+        return item.toString() + " | adicionado com sucesso.";
     }
 
     /**
@@ -29,6 +30,7 @@ public class PedidoAberto extends Pedido {
      * 
      * @return Total do pedido com gorjeta.
      */
+    @Override
     public double calcularTotal() {
         return this.total * GORJETA;
     }
@@ -36,11 +38,11 @@ public class PedidoAberto extends Pedido {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Pedido:\n");
+        sb.append("\nPedido com cardápio aberto:\n");
         for (EItem item : itens) {
             sb.append(item.getDescricao()).append(" = R$").append(item.getValor()).append("\n");
         }
-        sb.append("Total (com gorjeta): R$").append(String.format("%.2f", calcularTotal())).append("\n");
+        sb.append("\nTotal (com gorjeta): R$").append(String.format("%.2f", calcularTotal()));
         return sb.toString();
     }
     // #endregion

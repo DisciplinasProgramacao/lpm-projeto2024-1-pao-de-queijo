@@ -11,10 +11,16 @@ public class CardapioAberto extends Cardapio {
 
     // #region Métodos de negócio
     @Override
-    public String mostrarMenu() {
-        return meusItens.stream()
-                        .map(item -> (meusItens.indexOf(item) + 1) + ": " + item)
-                        .collect(Collectors.joining("\n"));
+    public String exibirCardapio() {
+        StringBuilder sb = new StringBuilder();
+
+        String strItens = meusItens.stream()
+                                   .map(item -> (meusItens.indexOf(item) + 1) + ": " + item)
+                                   .collect(Collectors.joining("\n"));
+        
+        sb.append(strItens).append("\n");
+
+        return sb.toString();
     }
     // #endregion
 }

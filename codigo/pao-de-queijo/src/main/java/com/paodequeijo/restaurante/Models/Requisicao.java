@@ -69,8 +69,8 @@ public class Requisicao {
      * 
      * @param item Item a ser adicionado ao pedido.
      */
-    public void adicionarItemAoPedido(EItem item) {
-        this.pedido.adicionarItem(item);
+    public String adicionarItemAoPedido(EItem item) {
+        return this.pedido.adicionarItem(item);
     }
 
     /**

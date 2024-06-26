@@ -1,5 +1,6 @@
 package com.paodequeijo.restaurante.Models;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -204,20 +205,24 @@ public class App {
         System.out.println("========================================");
     }
 
-    static int MenuCardapio(Pedido pedido) {
-        int idItem;
+    static int[] MenuCardapio(Pedido pedido) {
+        int[] idItens;;
+        String input;
 
         cabecalhoCardapio();
         System.out.println(pedido.exibirCardapio());
-        System.out.println("Qual o número do item que gostaria de pedir?");
+        System.out.print("Quais os números dos itens que gostaria de pedir?\n");
+        System.out.println("(Escreva com espaço entre eles. Ex: 1 2 3 4 5 etc.)");
+        input = scanner.nextLine();
 
         try {
-            idItem = Integer.parseInt(scanner.nextLine());
+            String[] splInput = input.split(" ");
+            idItens = Arrays.stream(splInput).mapToInt(Integer::parseInt).toArray();
         } catch (NumberFormatException e) {
-            idItem = 0;
+            idItens = null;
         }
 
-        return idItem;
+        return idItens;
     }
 
     static void cabecalhoMesas() {
@@ -295,8 +300,10 @@ public class App {
                                 break;
                             }
 
-                            int idItem = MenuCardapio(pedido);
-                            System.out.println(restaurante.adicionarItem(requisicao, idItem));
+                            int[] idItens = MenuCardapio(pedido);
+                            for (int idItem : idItens) {
+                                System.out.println(restaurante.adicionarItem(requisicao, idItem));
+                            }
                             pausa();
                             break;
 

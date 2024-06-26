@@ -197,8 +197,7 @@ public class Restaurante {
 	 */
 	public String adicionarItem(Requisicao requisicao, int idItem) {
 		EItem item = requisicao.localizarItem(idItem);
-		requisicao.adicionarItemAoPedido(item);
-
-		return "\n" + item.toString() + " | adicionado com sucesso.";
+	
+		return requisicao.adicionarItemAoPedido(item);
 	}
 }

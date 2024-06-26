@@ -38,6 +38,14 @@ public abstract class Pedido {
     public abstract double calcularTotal();
 
     /**
+     * Exibe o cardápio
+     * @return String com os itens do cardápio 
+     */
+    public String exibirCardapio() {
+        return cardapio.exibirCardapio();
+    }
+
+    /**
      * Calcula o valor por pessoa.
      * 
      * @param quantPessoas Quantidade de pessoas.
@@ -47,12 +55,4 @@ public abstract class Pedido {
         return calcularTotal() / quantPessoas;
     }
     // #endregion
-
-    /**
-     * Exibe o cardápio
-     * @return String com os itens do cardápio 
-     */
-    public String exibirCardapio() {
-        return cardapio.mostrarMenu();
-    }
 }
