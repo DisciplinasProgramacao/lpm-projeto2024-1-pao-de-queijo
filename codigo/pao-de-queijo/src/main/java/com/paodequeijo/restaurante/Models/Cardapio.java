@@ -15,7 +15,7 @@ public abstract class Cardapio {
     }
     // #endregion
 
-    // #region Métodos de negócio
+    // #region Métodos
     /**
      * Inicializa os itens do cardápio.
      */

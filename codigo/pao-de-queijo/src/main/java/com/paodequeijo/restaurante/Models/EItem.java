@@ -1,6 +1,7 @@
 package com.paodequeijo.restaurante.Models;
 
 enum EItem {
+    //#region Atributos
     FALAFEL_ASSADO(20, "Falafel assado"),
     CAÇAROLA_DE_LEGUMES(20, "Caçarola de legumes"),
     COPO_DE_SUCO(5, "Copo de suco"),
@@ -15,12 +16,16 @@ enum EItem {
 
     private double valor;
     private String descricao;
+    //#endregion
 
+    //#region Construtor
     private EItem(double valor, String descricao) {
         this.valor = valor;
         this.descricao = descricao;
     }
+    //#endregion
 
+    //#region Getters
     public double getValor() {
         return valor;
     }
@@ -28,6 +33,7 @@ enum EItem {
     public String getDescricao() {
         return descricao;
     }
+    //#endregion
 
     @Override
     public String toString() {

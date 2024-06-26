@@ -9,7 +9,7 @@ public class CardapioAberto extends Cardapio {
     }
     //#endregion
 
-    // #region Métodos de negócio
+    // #region Métodos
     @Override
     public String exibirCardapio() {
         StringBuilder sb = new StringBuilder();

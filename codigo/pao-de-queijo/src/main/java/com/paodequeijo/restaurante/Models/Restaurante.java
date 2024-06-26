@@ -4,9 +4,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-/**
- * Representa o Restaurante
- */
 public class Restaurante {
 
 	// #region Atributos
@@ -47,7 +44,6 @@ public class Restaurante {
 	// #endregion
 
 	// #region Métodos
-
 	/**
 	 * Chama o método de gerar as mesas
 	 * do restaurante que possui:
@@ -200,4 +196,5 @@ public class Restaurante {
 	
 		return requisicao.adicionarItemAoPedido(item);
 	}
+	// #endregion
 }

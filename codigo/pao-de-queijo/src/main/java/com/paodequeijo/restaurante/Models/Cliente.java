@@ -1,10 +1,12 @@
 package com.paodequeijo.restaurante.Models;
+
 public class Cliente {
     //#region Atributos
     private String nome;
     private Long documento;
     //#endregion
 
+    //#region Construtor
     /**
      * Construtor da classe Cliente
      * @param nome
@@ -18,6 +20,7 @@ public class Cliente {
         this.nome = nome;
         this.documento = documento;
     }
+    //#endregion
 
     //#region Geters
     public String getNome() {

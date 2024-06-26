@@ -1,13 +1,9 @@
 package com.paodequeijo.restaurante.Models;
 
-/**
- * Representa uma requisição de um cliente em um restaurante.
- */
 public class Requisicao {
-
     // #region atributos de classe
     private static int ultimoId = 0;
-    //// #endregion
+    // #endregion
 
     // #region atributos
     private int id;
