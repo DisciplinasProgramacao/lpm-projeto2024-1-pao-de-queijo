@@ -37,6 +37,10 @@ public class Requisicao {
     public Pedido getPedido() {
         return pedido;
     }
+
+    public int getQuantPessoas() {
+        return quantPessoas;
+    }   
     // #endregion
 
     // #region Métodos
@@ -46,6 +50,10 @@ public class Requisicao {
      * @param mesa Mesa a ser associada à requisição.
      */
     public void associarMesa(Mesa mesa) {
+        if (mesa == null) {
+            throw new IllegalArgumentException("Mesa já ocupada.");
+        }
+
         this.mesa = mesa;
         mesa.setDisponivel(false);
     }

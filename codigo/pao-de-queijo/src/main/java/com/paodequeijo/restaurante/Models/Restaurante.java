@@ -123,6 +123,28 @@ public class Restaurante {
 	}
 
 	/**
+	 * Imprime a lista de requisições pendentes
+	 * 
+	 * @return String com a lista das requisições pendentes
+	 */
+	public String rodarFila() {
+		Requisicao requisicao = requisicoesPendentes.get(0);
+		Mesa mesa = procurarMesa(requisicao.getQuantPessoas());
+
+		try {
+			requisicao.associarMesa(mesa);
+			requisicoesAtendidas.add(requisicao);
+			requisicoesPendentes.remove(requisicao);
+
+			return "Fila atualizada: " + requisicao.toString() + "\n";
+		} catch (IllegalArgumentException ie) {
+			System.out.println("Erro ao associar mesa: " + ie.getMessage());
+		}
+
+		return null;
+	}
+
+	/**
 	 * Busca uma mesa disponível
 	 * 
 	 * @param quantPessoas É utilizado para a buscar a mesa de acordo com a
@@ -147,7 +169,7 @@ public class Restaurante {
 				requisicao.finalizar();
 				requisicoesAtendidas.remove(requisicao);
 				requisicoesFinalizadas.add(requisicao);
-				return requisicao.toString();
+				return "Finalização da: " + requisicao.toString() + "\n";
 			} else {
 				return "Requisição não encontrada";
 			}

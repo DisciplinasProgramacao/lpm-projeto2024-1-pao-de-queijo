@@ -269,6 +269,12 @@ public class App {
                             try {
                                 int mesa = Integer.parseInt(scanner.nextLine());
                                 System.out.println(restaurante.finalizarRequisicao(mesa));
+                                try {
+                                    System.out.println(restaurante.rodarFila());
+                                } catch (IllegalArgumentException ie) {
+                                    System.out.println(ie.getMessage());
+                                
+                                }
                                 pausa();
                             } catch (NumberFormatException e) {
                                 System.out.println("Número de mesa inválido.");
