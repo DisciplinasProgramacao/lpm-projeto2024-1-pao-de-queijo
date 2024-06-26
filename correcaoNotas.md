@@ -21,3 +21,27 @@ Mesa - sem documentação. sem testes. set sem validação. - Gustavo - 4
 Requisicao - sem chamar mesa ocupada. - Nicolas - 10
 
 Restaurante - sem documentacao. sem teste. gets e desnecessários - Matheus - 8 
+
+## Sprint 2 - Até 19/maio
+  - Nota de grupo (6 pontos)
+    - Modelo UML atualizado - cardápio e pedidos
+	  - Estrutura Pacotes
+  
+  - Nota individual (14 pontos)	
+    - Implementações cardápio e pedidos
+    - Controllers
+    - Correções anteriores
+
+### Commit 176db30 (22 de maio)
+
+Diagrama e estrutura - ok - Todos - 6
+
+Cardápio - ok (sem tratamento de erro)
+
+Pedido - ok
+
+Comidas/Bebidas/Item - ok
+
+Requisicao - getPedido desnecessário - ok
+
+App - ok
