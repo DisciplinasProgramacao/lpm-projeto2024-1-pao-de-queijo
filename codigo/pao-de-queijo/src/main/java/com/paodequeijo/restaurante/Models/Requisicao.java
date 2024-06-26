@@ -1,7 +1,5 @@
 package com.paodequeijo.restaurante.Models;
 
-import java.time.LocalDateTime;
-
 /**
  * Representa uma requisição de um cliente em um restaurante.
  */
@@ -14,9 +12,7 @@ public class Requisicao {
     // #region atributos
     private int id;
     private int quantPessoas;
-    private LocalDateTime horaSaida;
     private Cliente cliente;
-    private boolean atendida;
     private Mesa mesa;
     private Pedido pedido;
     // #endregion
@@ -32,7 +28,6 @@ public class Requisicao {
         this.id = ++ultimoId;
         this.quantPessoas = quantPessoas;
         this.cliente = cliente;
-        this.atendida = false;
         this.mesa = null;
         this.pedido = pedido;
     }
@@ -81,11 +76,8 @@ public class Requisicao {
     /**
      * Finaliza a requisição, definindo a hora de saída e marcando como finalizada.
      * 
-     * @param horaSaida Horário local que a finalização foi feita.
      */
     public void finalizar() {
-        this.horaSaida = LocalDateTime.now();
-        this.atendida = true;
         this.mesa.setDisponivel(true);
         this.pedido.calcularTotal();
     }
