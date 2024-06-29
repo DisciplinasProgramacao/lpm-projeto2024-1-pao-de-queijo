@@ -1,8 +1,6 @@
 package com.paodequeijo.restaurante.Models;
-/**
- * Representa uma mesa no restaurante
-*/
-public class Mesa{
+
+public class Mesa {
     //#region Atributos de classe
     private static int ultimoNumero = 0;
     //#endregion
@@ -30,18 +28,6 @@ public class Mesa{
     //#region Getters e Setters
     public int getNumero() {
         return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public int getCapacidade() {
-        return capacidade;
-    }
-
-    public void setCapacidade(int capacidade) {
-        this.capacidade = capacidade;
     }
 
     public boolean isDisponivel() {

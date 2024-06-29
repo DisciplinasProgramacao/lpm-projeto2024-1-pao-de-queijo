@@ -1,5 +1,6 @@
 package com.paodequeijo.restaurante.Models;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -106,11 +107,10 @@ public class App {
         Pedido pedido;
         int quantPessoas = 0;
 
-        pedido = criarPedido();
-
         System.out.print("Bem-vindo(a), " + cliente.getNome() + "! Mesa para quantas pessoas? ");
         try {
             quantPessoas = Integer.parseInt(scanner.nextLine());
+            pedido = criarPedido(quantPessoas);
             requisicao = restaurante.criarRequisicao(cliente, quantPessoas, pedido);
         } catch (NumberFormatException e) {
             requisicao = null;
@@ -119,7 +119,7 @@ public class App {
         return requisicao;
     }
 
-    static Pedido criarPedido() {
+    static Pedido criarPedido(int quantPessoas) {
         int opcao;
         Pedido pedido;
         System.out.println("\n1 - Pedido com cardápo aberto");
@@ -129,6 +129,9 @@ public class App {
 
         try {
             opcao = Integer.parseInt(scanner.nextLine());
+            if (opcao < 0 || opcao > 2) {
+                throw new NumberFormatException("Opção inválida.");
+            }
         } catch (NumberFormatException e) {
             throw new NullPointerException("Opção inválida.");
         }
@@ -139,7 +142,7 @@ public class App {
                 break;
             
             case 2:
-                pedido = new PedidoFechado();
+                pedido = new PedidoFechado(quantPessoas);
                 break;
         
             default:
@@ -163,24 +166,6 @@ public class App {
             opcao = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             opcao = -1;
-        }
-
-        return opcao;
-    }
-
-    static int MenuCriarPedido() {
-        int opcao;
-        cabecalho();
-
-        System.out.println("1 - Ver Cardapio");
-        System.out.println("0 - Sair");
-        System.out.print("\nDigite sua opção: ");
-
-        try {
-            opcao = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            opcao = -1;
-
         }
 
         return opcao;
@@ -220,20 +205,24 @@ public class App {
         System.out.println("========================================");
     }
 
-    static int MenuCardapio(Pedido pedido) {
-        int idItem;
+    static int[] MenuCardapio(Pedido pedido) {
+        int[] idItens;;
+        String input;
 
         cabecalhoCardapio();
         System.out.println(pedido.exibirCardapio());
-        System.out.println("Qual o número do item que gostaria de pedir?");
+        System.out.print("Quais os números dos itens que gostaria de pedir?\n");
+        System.out.println("(Escreva com espaço entre eles. Ex: 1 2 3 4 5 etc.)");
+        input = scanner.nextLine();
 
         try {
-            idItem = Integer.parseInt(scanner.nextLine());
+            String[] splInput = input.split(" ");
+            idItens = Arrays.stream(splInput).mapToInt(Integer::parseInt).toArray();
         } catch (NumberFormatException e) {
-            idItem = 0;
+            idItens = null;
         }
 
-        return idItem;
+        return idItens;
     }
 
     static void cabecalhoMesas() {
@@ -280,6 +269,12 @@ public class App {
                             try {
                                 int mesa = Integer.parseInt(scanner.nextLine());
                                 System.out.println(restaurante.finalizarRequisicao(mesa));
+                                try {
+                                    System.out.println(restaurante.rodarFila());
+                                } catch (IllegalArgumentException ie) {
+                                    System.out.println(ie.getMessage());
+                                
+                                }
                                 pausa();
                             } catch (NumberFormatException e) {
                                 System.out.println("Número de mesa inválido.");
@@ -311,8 +306,10 @@ public class App {
                                 break;
                             }
 
-                            int idItem = MenuCardapio(pedido);
-                            System.out.println(restaurante.adicionarItem(requisicao, idItem));
+                            int[] idItens = MenuCardapio(pedido);
+                            for (int idItem : idItens) {
+                                System.out.println(restaurante.adicionarItem(requisicao, idItem));
+                            }
                             pausa();
                             break;
 

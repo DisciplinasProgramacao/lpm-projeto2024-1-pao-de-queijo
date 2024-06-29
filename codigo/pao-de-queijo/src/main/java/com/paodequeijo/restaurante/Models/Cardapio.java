@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Cardapio {
-     //#region Atributos
+    //#region Atributos
        protected List<EItem> meusItens;
     // #endregion
 
@@ -15,7 +15,7 @@ public abstract class Cardapio {
     }
     // #endregion
 
-    // #region Métodos de negócio
+    // #region Métodos
     /**
      * Inicializa os itens do cardápio.
      */
@@ -29,7 +29,7 @@ public abstract class Cardapio {
      * Mostra o cardápio.
      * @return Cardápio.
      */
-    public abstract String mostrarMenu();
+    public abstract String exibirCardapio();
 
     /**
      * Retorna o Item correspondente ao numero escolhido.
