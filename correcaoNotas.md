@@ -55,7 +55,7 @@ App - ok
     - Correções anteriores
 
 ### Revisão 12/06
-Diagrama ainda sem menu/pedido fechado - Todos - 0
+Diagrama ainda sem menu/pedido fechado - Todos - **3 REVISADO**
 
 App: chamadas desnecessárias/simples
 
@@ -68,3 +68,17 @@ Restaurante: colecoes x arraylist. get para todas as listas. gets em sequencia. 
 Cardápio/cardápio fechado: abstracao
   
 Colaborações: (Nicolás, Raquel++++), Matheus(++)
+
+## Sprint 4 - Apresentação em 26/06
+  - Nota de grupo 6/6 pontos
+	- Modelo atualizado
+	- Apresentação
+	
+  - Nota individual 13/14 pontos
+    - Contribuições na última sprint: ok para todos.
+
+
+### Observações
+Parabéns, pessoal. O trabalho ficou muito bom. Alguns detalhes sempre podem melhorar (como p.ex. uma confusão entre cardápio e pedido, e o pedido fechado usando um if para validar - que podia ser usando o cardápio), mas no geral está tudo caprichado.
+
+
